@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ElasticWorksApplication {
+public class ElasticWorksBackEndApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ElasticWorksApplication.class, args);
+		SpringApplication.run(ElasticWorksBackEndApplication.class, args);
 	}
 
 }

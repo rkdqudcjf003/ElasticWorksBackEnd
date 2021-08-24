@@ -18,13 +18,13 @@ import org.springframework.context.annotation.PropertySource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import kr.co.elasticworks.ElasticWorksApplication;
+import kr.co.elasticworks.ElasticWorksBackEndApplication;
 
 @Configuration
 @PropertySource("classpath:/application.yml")
-@MapperScan(value = "co.kr.elasticworks.*.mapper.*")
+@MapperScan(value = "co.kr.elasticworks.api.mapper.*")
 public class DBConfig {
-	private static final Logger log = LoggerFactory.getLogger(ElasticWorksApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(ElasticWorksBackEndApplication.class);
 	
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -55,8 +55,8 @@ public class DBConfig {
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
-		sessionFactory.setTypeAliasesPackage("kr.co.elasticworks*");
-		sessionFactory.setMapperLocations(applicationContext.getResources("classpath:*.mapper.*Mapper.xml"));
+		sessionFactory.setTypeAliasesPackage("kr.co.elasticworks.*");
+//		sessionFactory.setMapperLocations(applicationContext.getResources("classpath:*.mapper.*Mapper.xml"));
 		sessionFactory.setConfiguration(mybatisConfg());
 		return sessionFactory.getObject();
 	}
