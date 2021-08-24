@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<Configuration>
+	<Appenders>
+		<Console name="log4j2" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<Console name="log4jdbc.log4j2" target="STDOUT" class="org.apache.log4j.ConsoleAppender">
+			<PatternLayout pattern="%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %-3level %logger{5} - %msg %n" />
+		</Console>
+		
+		
+	</Appenders>
+	<Loggers>
+		<Root level="INFO">
+   			<AppenderRef ref="log4j2"/>
+   			<AppenderRef ref="log4jdbc.log4j2"/>
+   		</Root>
+	
+		<Logger name="com.project.elk" level="INFO" additivity="FALSE">
+			<AppenderRef ref="log4j2" />
+		</Logger>
+		
+		<Logger name="log4jdbc.log4j2" level="off" additivity="false">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+		<Logger name="jdbc.sqlonly" level="off">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+		<Logger name="jdbc.sqltiming" level="debug">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+		<Logger name="jdbc.audit" level="off">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+		<Logger name="jdbc.resultset" level="off">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+		<Logger name="jdbc.resultsettable" level="debug">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+		<Logger name="jdbc.connection" level="off">
+			<AppenderRef ref="log4jdbc.log4j2" />
+		</Logger>
+	</Loggers>
+
+</Configuration>
