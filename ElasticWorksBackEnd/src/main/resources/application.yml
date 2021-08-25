@@ -1,16 +1,13 @@
 server:
-  port: 8502
+  port: 8099
   
-
-
-
 #SpringBoot 및 DB 설정   
 spring:
   data:
     rest:
       base-path: /api
   datasource:
-#     hikari
+#hikari
     hikari:
       idle-timeout: 300
       max-lifetime: 300
@@ -22,12 +19,17 @@ spring:
   devtools: 
     livereload:
       enabled: true
-#  cache:
-#    type: redis
+  cache:
+    type: redis
 #Redis 
   redis:
     host: localhost
     port: 6379
+    lettuce:
+     pool:
+       max-active: 10
+       max-idle: 10 
+       min-idle: 2
 # 콘솔 창에 출력되는 로깅 메세지를 색으로 구분해서 출력
   output:
     ansi:
@@ -37,13 +39,9 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations:
-  - classpath:/mapper/*.xml
+  type-aliases-package: kr.co.elasticworks.api.model
+  mapper-locations: mapper/*Mapper.xml
 
-#    lettuce:
-#      pool:
-#        max-active: 10
-#        max-idle: 10
-#        min-idle: 2
+  
 
 

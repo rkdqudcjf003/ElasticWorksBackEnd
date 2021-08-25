@@ -26,14 +26,14 @@ import kr.co.elasticworks.ElasticWorksBackEndApplication;
 public class DBConfig {
 	private static final Logger log = LoggerFactory.getLogger(ElasticWorksBackEndApplication.class);
 	
-	@Autowired
-	private ApplicationContext applicationContext;
+//	@Autowired
+//	private ApplicationContext applicationContext;
 
-	@Bean
-	@ConfigurationProperties(prefix = "mybatis.configuration")
-	public org.apache.ibatis.session.Configuration mybatisConfg() {
-		return new org.apache.ibatis.session.Configuration();
-	}
+//	@Bean
+//	@ConfigurationProperties(prefix = "mybatis.configuration")
+//	public org.apache.ibatis.session.Configuration mybatisConfg() {
+//		return new org.apache.ibatis.session.Configuration();
+//	}
 
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource.hikari")
@@ -51,19 +51,19 @@ public class DBConfig {
 	/*
 	 * SqlSessionFactory 설정
 	 */
-	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-		sessionFactory.setDataSource(dataSource);
-		sessionFactory.setTypeAliasesPackage("kr.co.elasticworks.*");
+//	@Bean
+//	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+//		sessionFactory.setDataSource(dataSource);
+//		sessionFactory.setTypeAliasesPackage("kr.co.elasticworks.*");
 //		sessionFactory.setMapperLocations(applicationContext.getResources("classpath:*.mapper.*Mapper.xml"));
-		sessionFactory.setConfiguration(mybatisConfg());
-		return sessionFactory.getObject();
-	}
-
-	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		return new SqlSessionTemplate(sqlSessionFactory);
-	}
-	 
+//		sessionFactory.setConfiguration(mybatisConfg());
+//		return sessionFactory.getObject();
+//	}
+//
+//	@Bean
+//	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+//		return new SqlSessionTemplate(sqlSessionFactory);
+//	}
+//	 
 }

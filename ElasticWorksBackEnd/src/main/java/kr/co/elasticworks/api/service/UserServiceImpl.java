@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService, UserDetailsService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-	@Autowired
+//	@Autowired
 	UserMapper userMapper;
 
 	@Autowired

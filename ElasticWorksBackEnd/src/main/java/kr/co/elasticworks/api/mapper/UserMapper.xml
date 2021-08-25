@@ -5,7 +5,7 @@
 		<result column="user_no" property="userNo" />
 		<result column="user_id" property="userId" />
 		<result column="user_pwd" property="userPwd" />
-		<result column="user_real_name" property="userRealName" />
+		<result column="user_real_name" property="userName" />
 		<result column="user_nick_name" property="userNickName" />
 		<result column="user_hp" property="userHp" />
 		<result column="user_email1" property="userEmail1" />
@@ -48,7 +48,7 @@
 		WHERE user_id = #{userId}
 	</update>
 
-	<select id="findByUserId" resultType="kr.co.elasticworks.api.model.UserVO">
+	<select id="findByUserId" resultType="UserVO">
 		SELECT
 			u.user_no AS userNo,
 			u.user_id AS userId,
