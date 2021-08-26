@@ -1,6 +1,5 @@
 package kr.co.elasticworks.api.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
-//	@Autowired
-	UserMapper userMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	
-	
+
 	public UserVO selectOneUser(String userId) {
 		return userMapper.selectOneUser(userId);
 
@@ -67,31 +64,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-    public UserVO loginUser(String userId, String userPassword) throws Exception{
+	public UserVO loginUser(String userId, String userPassword) throws Exception {
 		UserVO user = userMapper.findByUserId(userId);
-		
-        if(user == null) throw new Exception ("멤버가 조회되지 않음");
-        
-        return user;
-    }
-	
-	
-	
+
+		if (user == null)
+			throw new Exception("멤버가 조회되지 않음");
+
+		return user;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		System.out.println("PrincipalDetailsService의 loadUserByUsername()");
-	
-		UserVO user = userMapper.findByUserId(userId);		
+
+		UserVO user = userMapper.findByUserId(userId);
 		System.out.println("USER_ID!! " + userId);
 		System.out.println("USER_VO!! " + user);
-		if(user == null){
-            throw new UsernameNotFoundException(userId + " : 사용자 존재하지 않음");
-        }
+		if (user == null) {
+			throw new UsernameNotFoundException(userId + " : 사용자 존재하지 않음");
+		}
 		System.out.println("return");
-        return user;
+		return user;
 
 	}
-	
-	
 
 }

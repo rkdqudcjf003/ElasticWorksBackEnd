@@ -38,4 +38,13 @@ public class CookieUtil {
 		}
 		return null;
 	}
+	
+	public Cookie setCookie(Cookie reqLogoutCookie) {
+		final Cookie cookie = reqLogoutCookie;
+		if(cookie == null) return null;
+		cookie.setHttpOnly(true);
+		cookie.setPath("/");
+		cookie.setValue("");
+		return cookie;
+	}
 }

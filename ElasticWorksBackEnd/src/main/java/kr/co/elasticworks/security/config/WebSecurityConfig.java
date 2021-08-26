@@ -24,10 +24,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
-import kr.co.elasticworks.security.jwt.CustomLogoutHandler;
 import kr.co.elasticworks.security.jwt.JwtAccessDeniedHandler;
 import kr.co.elasticworks.security.jwt.JwtAuthenticationEntryPoint;
 import kr.co.elasticworks.security.jwt.JwtAuthenticationFilter;
+import kr.co.elasticworks.security.jwt.JwtLogoutHandler;
 import kr.co.elasticworks.security.jwt.JwtRequestFilter;
 import kr.co.elasticworks.security.util.redis.RedisService;
 import kr.co.elasticworks.api.service.UserServiceImpl;
@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     JwtRequestFilter jwtRequestFilter;
     
     @Autowired
-    private CustomLogoutHandler logoutHandler;
+    private JwtLogoutHandler logoutHandler;
     
     @Autowired
 	RedisService redisService;
@@ -93,12 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(
         		"/css/**",
         		"/js/**",
-        		"/img/**",
-        		"/v2/api-docs",
-        		"/swagger-resources/**",
-        		"/swagger-ui.html",
-        		"/webjars/**",
-        		"/swagger/**"
+        		"/img/**"
         		);
     }
 
@@ -109,7 +104,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	 http.csrf().disable();// We don't need CSRF for JWT based authentication
          http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          http
-         	 .formLogin().disable()
+         	 .formLogin()
+         	 .usernameParameter("userId")
+         	 .disable()
+         	 
      		 .httpBasic().disable();
 //     	 http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
      	 JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), redisService);
@@ -150,8 +148,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      	 	 .logout()
 //     	 	 .logoutSuccessUrl("/test/logoutResult")
      	 	 .addLogoutHandler(logoutHandler)
-     	 	 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
-     	 	 .deleteCookies("accessToken", "refreshToken");
+     	 	 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK));
+//     	 	 .deleteCookies("accessToken", "refreshToken");
     }
 
 }

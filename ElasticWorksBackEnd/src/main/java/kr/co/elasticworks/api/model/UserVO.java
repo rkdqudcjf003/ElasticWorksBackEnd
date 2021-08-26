@@ -14,7 +14,6 @@ import lombok.*;
 
 
 @Data
-
 public class UserVO implements UserDetails {
 	private int userNo; // 회원 pk
 	private String userId;// varchar(45) NOT NULL,

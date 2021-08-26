@@ -49,7 +49,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		final Cookie cookieAccessToken = cookieUtil.getCookie(req, "accessToken");
 		final Cookie cookieRefreshToken = cookieUtil.getCookie(req, "refreshToken");
 //		log.info(cookieAccessToken.getValue());
-		log.info("REFRESHTOKEN: " + cookieRefreshToken.getValue());
+//		log.info("REFRESHTOKEN: " + cookieRefreshToken.getValue());
 		
 		String username = null;
 		String accessJwt = null;

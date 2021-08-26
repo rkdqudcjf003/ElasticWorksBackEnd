@@ -1,5 +1,4 @@
 package kr.co.elasticworks.api.model;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

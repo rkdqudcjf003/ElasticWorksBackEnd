@@ -37,10 +37,11 @@ spring:
       
 #MyBatis      
 mybatis:
+  mapper-locations: mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: kr.co.elasticworks.api.model
-  mapper-locations: mapper/*Mapper.xml
+  
 
   
 

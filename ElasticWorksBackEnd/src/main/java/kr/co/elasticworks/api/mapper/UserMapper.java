@@ -7,7 +7,6 @@ import kr.co.elasticworks.api.model.UserVO;
 
 @Mapper
 public interface UserMapper {
-
 	public UserVO selectOneUser(String userId);
 
 	public int updateUser(UserVO User);
@@ -23,7 +22,4 @@ public interface UserMapper {
 	int findRoleNo(@Param("roleName") String roleName);
 	
 	String findByUserPwd(String id);
-
-
-
 }

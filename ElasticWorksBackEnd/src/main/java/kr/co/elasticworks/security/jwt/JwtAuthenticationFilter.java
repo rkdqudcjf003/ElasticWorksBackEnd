@@ -50,6 +50,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		System.out.println("===================================================================JWT AuthenticationFilter: 진입===================================================================");
 		System.out.println("==================================================================attemptAuthentication() 함수 실행==================================================================");
+		
+		
 		// request에 있는 username과 password를 파싱해서 자바 Object로 받기
 		ObjectMapper om = new ObjectMapper();
 		LoginRequestDTO loginRequestDto = null;
