@@ -17,7 +17,7 @@ import kr.co.elasticworks.ElasticWorksBackEndApplication;
 
 @Configuration
 @PropertySource("classpath:/application.yml")
-@MapperScan(basePackages = { "kr.co.elasticworks.api.mapper" })
+//@MapperScan(basePackages = { "kr.co.elasticworks.api.mapper" })
 public class DBConfig {
 	private static final Logger log = LoggerFactory.getLogger(ElasticWorksBackEndApplication.class);
 
@@ -30,7 +30,7 @@ public class DBConfig {
 	@Bean
 	public DataSource dataSource() {
 		DataSource dataSource = new HikariDataSource(hikariConfig());
-		log.info("datasource : {}", dataSource);
+		log.info("datasource : {}너는 누구냐", dataSource);
 		return dataSource;
 	}
 }

@@ -27,7 +27,7 @@
 		<Logger name="jdbc.sqlonly" level="off">
 			<AppenderRef ref="log4jdbc.log4j2" />
 		</Logger>
-		<Logger name="jdbc.sqltiming" level="debug">
+		<Logger name="jdbc.sqltiming" level="debug" additivity="false">
 			<AppenderRef ref="log4jdbc.log4j2" />
 		</Logger>
 		<Logger name="jdbc.audit" level="off">
@@ -36,7 +36,7 @@
 		<Logger name="jdbc.resultset" level="off">
 			<AppenderRef ref="log4jdbc.log4j2" />
 		</Logger>
-		<Logger name="jdbc.resultsettable" level="debug">
+		<Logger name="jdbc.resultsettable" level="debug" additivity="false">
 			<AppenderRef ref="log4jdbc.log4j2" />
 		</Logger>
 		<Logger name="jdbc.connection" level="off">

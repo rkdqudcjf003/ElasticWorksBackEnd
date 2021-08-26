@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		User.setUserPwd(userVo.getUserPwd());
 		User.setUserRealName(userVo.getUserRealName());
 		User.setUserNickName(userVo.getUserNickName());
-		User.setUserHp(userVo.getUserHp());
+		User.setUserPhoneNumber(userVo.getUserPhoneNumber());
 		User.setUserEmail1(userVo.getUserEmail1());
 		User.setUserEmail2(userVo.getUserEmail2());
 		User.setUserAddress1(userVo.getUserAddress1());

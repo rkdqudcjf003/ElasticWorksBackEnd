@@ -21,6 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
@@ -104,10 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	 http.csrf().disable();// We don't need CSRF for JWT based authentication
          http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          http
-         	 .formLogin()
-         	 .usernameParameter("userId")
-         	 .disable()
-         	 
+         	 .formLogin().disable()
      		 .httpBasic().disable();
 //     	 http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
      	 JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), redisService);
@@ -115,17 +113,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      	 
      	 http.addFilter(corsFilter)
      	 	 .addFilter(jwtAuthenticationFilter) // AuthenticationManager
-     	 	 .addFilterBefore(jwtRequestFilter, JwtAuthenticationFilter.class); //JwtAuthenticationFilter.class
+     	 	 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JwtAuthenticationFilter.class
      	 http
+// 			 .authorizeRequests()
+// 			 .antMatchers(HttpMethod.POST, "/api/user/**").hasAnyRole("USER", "ADMIN")
+// 			 .and()
  			 .authorizeRequests()
- 			 .antMatchers(HttpMethod.POST, "/api/user/**").hasAnyRole("USER", "ADMIN")
- 			 .and()
+			 .antMatchers(HttpMethod.POST, "/api/user/signUp").permitAll()
+			 .and()
 			 .authorizeRequests()
  			 .antMatchers(HttpMethod.POST, "/api/admin/**").hasRole("ADMIN")
  			 .and()
 			 .authorizeRequests()
  			 .antMatchers("/api/board/**").authenticated()
-// 			 .hasAnyRole("USER", "ADMIN")
  			 .and()
 			 .authorizeRequests()
 			 .antMatchers(HttpMethod.POST, "/login").permitAll()

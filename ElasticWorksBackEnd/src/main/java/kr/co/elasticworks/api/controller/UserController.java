@@ -50,8 +50,9 @@ public class UserController {
 		return userService.selectOneUser(userId);
 	}
 
-	@PostMapping(value = "/insert")
-	public int insertUer(@RequestBody UserVO userVo) throws Exception {
+	@PostMapping(value = "/signUp")
+	public int insertUser(@RequestBody UserVO userVo) throws Exception {
+		System.out.println("걔빡치네");
 		return userService.insertUser(userVo);
 	}
 
@@ -64,7 +65,7 @@ public class UserController {
 //	}
 
 	@PostMapping(value = "/{userId}")
-	public int updateUserr(@PathVariable("userId") String userId, UserVO UserVo) throws Exception {
+	public int updateUser(@PathVariable("userId") String userId, UserVO UserVo) throws Exception {
 		return userService.updateUser(userId, UserVo);
 	}
 

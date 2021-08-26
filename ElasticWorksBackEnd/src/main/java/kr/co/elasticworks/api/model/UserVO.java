@@ -20,7 +20,7 @@ public class UserVO implements UserDetails {
 	private String userPwd;// varchar(45) NOT NULL,
 	private String userRealName; // varchar(20) NOT NULL,
 	private String userNickName; // varchar(20) NOT NULL,
-	private String userHp;// ` varchar(45) NOT NULL,
+	private String userPhoneNumber;// ` varchar(45) NOT NULL,
 	private String userEmail1;// ` varchar(45) NOT NULL,
 	private String userEmail2;// varchar(45) NOT NULL,
 	private String userAddress1;// varchar(45) DEFAULT NULL,
