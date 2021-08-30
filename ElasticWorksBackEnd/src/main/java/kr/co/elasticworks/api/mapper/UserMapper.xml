@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.elasticworks.api.mapper.UserMapper">
-	<resultMap id="UserResult" type="UserVO">
+	<resultMap id="UserResult" type="User">
 		<result column="user_no" property="userNo" />
 		<result column="user_id" property="userId" />
 		<result column="user_pwd" property="userPwd" />
@@ -16,37 +16,78 @@
 	</resultMap>
                                                                                               
 	<select id="selectOneUser" resultMap="UserResult">
-		SELECT user_no, user_id, user_pwd, user_real_name, user_nick_name, user_phone_number, user_email1, user_email2, user_address1, user_address2, role_name
-		FROM user
-		WHERE user_id = #{userId}
+		SELECT
+			user_no,
+			user_id,
+			user_pwd,
+			user_real_name,
+			user_nick_name,
+			user_phone_number,
+			user_email1, user_email2,
+			user_address1,
+			user_address2,
+			role_name
+		FROM
+			user
+		WHERE
+			user_id = #{userId}
 	</select>
 
 	<insert id="insertUser">
-		<selectKey resultType="int" keyProperty="userNo" order="AFTER">
-             SELECT LAST_INSERT_ID()
-        </selectKey>
-		INSERT INTO user (user_no, user_id, user_pwd, user_real_name, user_nick_name, user_phone_number, user_email1, user_email2, user_address1, user_address2, role_name)
-		VALUES (#{userNo}, #{userId}, #{userPwd}, #{userRealName}, #{userNickName}, #{userPhoneNumber}, #{userEmail1}, #{userEmail2}, #{userAddress1}, #{userAddress2}, #{roleName})
+		INSERT INTO
+			user (
+				user_id,
+				user_pwd, 
+				user_real_name, 
+				user_nick_name, 
+				user_phone_number, 
+				user_email1, 
+				user_email2, 
+				user_address1, 
+				user_address2
+				)
+		VALUES (
+			#{userId}, 
+			#{userPwd}, 
+			#{userRealName}, 
+			#{userNickName}, 
+			#{userPhoneNumber}, 
+			#{userEmail1}, 
+			#{userEmail2}, 
+			#{userAddress1}, 
+			#{userAddress2}
+			)
 	</insert>
 
 	<update id="updateUser">
-		UPDATE user
-		SET user_pwd = #{userPwd}, user_nick_name = #{userNickName}, user_phone_number = #{userPhoneNumber}, user_email1 = #{userEmail1}, user_email2 = #{userEmail2}, user_address1 = #{userAddress1}, user_address2 = #{userAddress2}, role_name = #{roleName}
-		WHERE user_id = #{userId}
+		UPDATE
+			user
+		SET
+			user_pwd = #{userPwd},
+			user_nick_name = #{userNickName},
+			user_phone_number = #{userPhoneNumber},
+			user_email1 = #{userEmail1},
+			user_email2 = #{userEmail2},
+			user_address1 = #{userAddress1},
+			user_address2 = #{userAddress2},
+			role_name = #{roleName}
+		WHERE
+			user_id = #{userId}
 	</update>
 
-	<select id="findByUserId" resultType="UserVO">
+	<select id="findByUserId" resultType="User">
 		SELECT
 			u.user_no AS userNo,
 			u.user_id AS userId,
 			u.user_pwd AS userPwd,
 			u.user_real_name AS userRealName,
 			r.role_name AS roleName
-		FROM user AS u
-		  INNER JOIN user_role AS ur
-		  ON u.user_no = ur.user_no
-		  INNER JOIN role AS r 
-		  ON r.role_no = ur.role_no
+		FROM
+			user AS u
+				INNER JOIN user_role AS ur
+				ON u.user_no = ur.user_no
+				INNER JOIN role AS r 
+				ON r.role_no = ur.role_no
 		WHERE
 			u.user_id = #{userId}
     </select> 
@@ -67,31 +108,40 @@
 	<select id="findUserNo" resultType="Integer">
 		SELECT 
 			user_no
-		FROM user
-		WHERE user_id = #{userId}
+		FROM
+			user
+		WHERE
+			user_id = #{userId}
 	</select>
 	
-	<select id="findRoleNo" resultType="Integer">
+	<select id="findRoleNo" resultType="int">
 		SELECT 
 			role_no
-		FROM role
-		WHERE role_name = #{roleName}
+		FROM
+			role
+		WHERE
+			role_name = #{roleName}
 	</select>
 	
 	<select id="findByUserPwd" resultType="string">
 		SELECT 
 			user_pwd
-		FROM user
-		WHERE user_id = #{userId}
+		FROM
+			user
+		WHERE
+			user_id = #{userId}
 	</select>
 	
 	<!-- "select u from User u left join fetch u.roles r where u.username=:username" -->
 	<select id="findByUserName" resultType="string">
 		SELECT 
 			u
-		FROM user u
-		  LEFT JOIN FETCH u.roleName r
-		WHERE u.user_id=:username
+		FROM
+			user u
+			LEFT JOIN FETCH
+				u.roleName r
+		WHERE
+			u.user_id=:username
 	</select>
 	
 	

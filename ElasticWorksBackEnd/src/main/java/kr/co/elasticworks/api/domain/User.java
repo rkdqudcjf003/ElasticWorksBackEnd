@@ -1,5 +1,5 @@
 
-package kr.co.elasticworks.api.model;
+package kr.co.elasticworks.api.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import lombok.*;
 
 
 @Data
-public class UserVO implements UserDetails {
+public class User implements UserDetails {
 	private int userNo; // 회원 pk
 	private String userId;// varchar(45) NOT NULL,
 	private String userPwd;// varchar(45) NOT NULL,

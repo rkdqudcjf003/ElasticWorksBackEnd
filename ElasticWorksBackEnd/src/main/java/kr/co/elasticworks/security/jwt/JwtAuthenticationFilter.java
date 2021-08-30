@@ -15,12 +15,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.co.elasticworks.api.model.LoginRequestDTO;
-import kr.co.elasticworks.api.model.UserVO;
+import kr.co.elasticworks.api.domain.LoginRequest;
+import kr.co.elasticworks.api.domain.User;
 import kr.co.elasticworks.security.util.cookie.CookieUtil;
 import kr.co.elasticworks.security.util.redis.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -49,15 +50,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			throws AuthenticationException {
 		
 		System.out.println("===================================================================JWT AuthenticationFilter: 진입===================================================================");
+		System.out.println("");
+		System.out.println("");
 		System.out.println("==================================================================attemptAuthentication() 함수 실행==================================================================");
 		
 		
 		// request에 있는 username과 password를 파싱해서 자바 Object로 받기
 		ObjectMapper om = new ObjectMapper();
-		LoginRequestDTO loginRequestDto = null;
+		LoginRequest loginRequestDto = null;
 
 		try {
-			loginRequestDto = om.readValue(request.getReader(), LoginRequestDTO.class);
+			loginRequestDto = om.readValue(request.getReader(), LoginRequest.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,12 +75,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		System.out.println("JWT AuthenticationFilter: 토큰생성완료");
 		
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
-		UserVO user = (UserVO) authentication.getPrincipal();
 		
-		log.info("AUTHENTICATION : " + user.getUsername());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
 		System.out.println("==================================================================attemptAuthentication() 함수 종료==================================================================");
-
 		return authentication;
 	}
 
@@ -87,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authResult) throws IOException, ServletException {
 		System.out.println("==================================================================successfulAuthentication() 함수 종료==================================================================");
 
-		UserVO user = (UserVO) authResult.getPrincipal();
+		User user = (User) authResult.getPrincipal();
 		log.info("PRINCIPAL DETAILS: " + user);
 
 		JwtTokenUtil createToken = new JwtTokenUtil();

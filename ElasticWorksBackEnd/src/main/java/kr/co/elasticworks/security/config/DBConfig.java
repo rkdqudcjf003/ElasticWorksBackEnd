@@ -2,7 +2,6 @@ package kr.co.elasticworks.security.config;
 
 import javax.sql.DataSource;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,7 +16,6 @@ import kr.co.elasticworks.ElasticWorksBackEndApplication;
 
 @Configuration
 @PropertySource("classpath:/application.yml")
-//@MapperScan(basePackages = { "kr.co.elasticworks.api.mapper" })
 public class DBConfig {
 	private static final Logger log = LoggerFactory.getLogger(ElasticWorksBackEndApplication.class);
 

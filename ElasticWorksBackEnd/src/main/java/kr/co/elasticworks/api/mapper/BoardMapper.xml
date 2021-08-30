@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.elasticworks.api.mapper.BoardMapper">
+	<resultMap id="BoardResult"	type="Board">
+		<result column="board_idx" property="boardIdx" />
+		<result column="board_title" property="boardTitle" />
+		<result column="board_writer" property="boardWriter" />
+		<result column="board_content" property="boardContent" />
+		<result column="board_category" property="boardCategory" />
+		<result column="board_view" property="boardView" />
+		<result column="board_like_cnt" property="boardLikeCnt" />
+		<result column="board_insert_time" property="boardInsertTime" />
+		<result column="board_update_time" property="boardUpdateTime" />
+		<result column="board_delete_yn" property="boardDeleteYn" />
+		<result column="board_delete_time" property="boardDeleteTime" />
+	</resultMap>
+	
+	<sql id="BoardColumns">
+		board_idx,
+		board_title,
+		board_writer,
+		board_content,
+		board_category,
+		board_view,
+		board_like_cnt,
+		board_insert_time,
+		board_update_time,
+		board_delete_yn,
+		board_delete_time
+	</sql>
+	
+	<select id="getBoardList" resultMap="BoardResult" parameterType="Board">
+		SELECT
+			board_idx,
+			board_title,
+			board_writer,
+			board_content,
+			board_category,
+			board_view,
+			board_like_cnt,
+			board_insert_time,
+			board_update_time
+		FROM
+			board
+		WHERE
+			board_delete_yn = "0"
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'title'.equals(searchType)">
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND content LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'writer'.equals(searchType)">
+							AND writer LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</when> 
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND (title LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR content LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR writer LIKE CONCAT('%', #{searchKeyword}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		ORDER BY board_idx ASC
+		LIMIT #{firstBoardIndex}, #{boardsPerPage}
+	</select>
+	
+	<select id="getBoardListCnt" resultType="int" parameterType="Board">
+		SELECT count(*)
+		FROM
+			board
+		WHERE
+			delete_yn = 1
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'title'.equals(searchType)">
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND content LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'writer'.equals(searchType)">
+							AND writer LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND (title LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR content LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR writer LIKE CONCAT('%', #{searchKeyword}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="selectOneBoard" resultMap="BoardResult">
+		SELECT
+			board_idx,
+			board_title,
+			board_writer,
+			board_content,
+			board_category,
+			board_view,
+			board_like_cnt,
+			board_insert_time,
+			board_update_time
+		FROM
+			board
+		WHERE
+			board_idx = #{boardIdx}
+	</select>
+	
+	<insert id="insertBoard">
+		INSERT INTO
+			board (
+				board_title,
+				board_writer,
+				board_content,
+				board_category,
+				board_insert_time
+				)
+		VALUES (
+			#{boardTitle},
+			#{boardWriter},
+			#{boardContent},
+			#{boardCategory},
+			NOW()
+			)
+	</insert>
+	
+	<update id="updateBoard" >
+		UPDATE
+			board
+		SET
+			board_title = #{boardTitle},
+			board_writer = #{boardWriter},
+			board_content = #{boardContent},
+			board_category = #{boardCategory},
+			board_update_time = #{boardUpdateTime}
+		WHERE
+			board_idx = #{boardIdx}
+	</update>
+	
+	<update id="deleteBoard" >
+		UPDATE
+			board
+		SET
+			board_delete_yn = 1,
+			board_delete_time = now()
+		WHERE
+			board_idx = #{boardIdx}
+	</update>
+	
+	<select id="findByIdx" resultMap="BoardResult">
+		SELECT
+			board_idx
+		FROM
+			board
+	</select>
+</mapper>

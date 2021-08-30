@@ -12,9 +12,7 @@ public class RedisServiceImpl implements RedisService {
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
-
 	public String getData(String key) {
-//		ValueOperations<String, Object> valueOperations = (String) redisTemplate.opsForValue().get(key);
 		String valueOperations = (String) redisTemplate.opsForValue().get(key);
 		return valueOperations;
 	}
@@ -33,5 +31,4 @@ public class RedisServiceImpl implements RedisService {
 	public void deleteData(String key) {
 		redisTemplate.delete(key);
 	}
-
 }

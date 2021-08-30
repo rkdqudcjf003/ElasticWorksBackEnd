@@ -8,5 +8,4 @@ public interface RedisService {
 	void setDataExpire(String key, Object value, long duration);
 
 	void deleteData(String key);
-
 }

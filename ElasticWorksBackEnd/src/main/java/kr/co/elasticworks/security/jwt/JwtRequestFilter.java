@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import kr.co.elasticworks.api.model.UserVO;
+import kr.co.elasticworks.api.domain.User;
 import kr.co.elasticworks.api.service.UserServiceImpl;
 import kr.co.elasticworks.security.config.exception.CommonException;
 import kr.co.elasticworks.security.util.cookie.CookieUtil;
@@ -42,14 +42,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired
 	RedisService redisService;
 
-	public void runVaildation(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain)
+	protected void runVaildation(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain)
 			throws CommonException {
 		System.out.println("jwt request filter - 시작부분");
 
 		final Cookie cookieAccessToken = cookieUtil.getCookie(req, "accessToken");
 		final Cookie cookieRefreshToken = cookieUtil.getCookie(req, "refreshToken");
-//		log.info(cookieAccessToken.getValue());
-//		log.info("REFRESHTOKEN: " + cookieRefreshToken.getValue());
 		
 		String username = null;
 		String accessJwt = null;
@@ -96,9 +94,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				refreshUserId = redisService.getData(refreshJwt);
 				log.info("USER ID: " + refreshUserId);
 				log.info("REFRESHTOKEN: " + refreshJwt);
-				log.info(refreshUserId.equals(jwtTokenUtil.getUsernameFromToken(refreshJwt)));
-				log.info(jwtTokenUtil.getUsernameFromToken(refreshJwt));
-				log.info(redisService.getData(refreshJwt));
 				
 				if (refreshUserId.equals(jwtTokenUtil.getUsernameFromToken(refreshJwt))) {
 					UserDetails userDetails = userDetailsService.loadUserByUsername(refreshUserId);
@@ -107,8 +102,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 					usernamePasswordAuthenticationToken
 							.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
 					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
-					UserVO user = new UserVO();
+					
+					User user = new User();
 					user.setUserId(refreshUserId);
 					// 새로운 Access 토큰 발급
 					String newToken = jwtTokenUtil.generateAccessToken(user);
@@ -120,6 +115,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 					log.info("NEW ACCESS TOKEN: " + newAccessToken);
 					
 					res.addCookie(newAccessToken);
+					
+					
+					
 				}
 			}
 		} catch (ExpiredJwtException e1) {
@@ -136,9 +134,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		} catch (CommonException e) {
 			e.printStackTrace();
 		}
-
 		filterChain.doFilter(req, res);
-
 	}
-
 }

@@ -1,22 +1,8 @@
-package kr.co.elasticworks.security.jwt;
+package kr.co.elasticworks.security.jwt.trash;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
-
-
-@Slf4j
 @Component
 public class JwtAccessDeniedHandler {
 //    @Override

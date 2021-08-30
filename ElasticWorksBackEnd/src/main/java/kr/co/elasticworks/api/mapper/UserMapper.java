@@ -3,17 +3,17 @@ package kr.co.elasticworks.api.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import kr.co.elasticworks.api.model.UserVO;
+import kr.co.elasticworks.api.domain.User;
 
 @Mapper
 public interface UserMapper {
-	public UserVO selectOneUser(String userId);
+	int insertUser(User UserVO);
 
-	public int updateUser(UserVO User);
+	public User selectOneUser(String userId);
 	
-	int insertUser(UserVO UserVO);
+	public int updateUser(User User);
 	
-	UserVO findByUserId(@Param("userId") String id);
+	User findByUserId(@Param("userId") String id);
 
 	int userRoleSave(@Param("userNo") int userNo, @Param("roleNo") int roleNo);
 

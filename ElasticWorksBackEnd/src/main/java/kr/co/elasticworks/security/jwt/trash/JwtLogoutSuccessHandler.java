@@ -1,4 +1,4 @@
-package kr.co.elasticworks.security.jwt;
+package kr.co.elasticworks.security.jwt.trash;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-public class CustomLogoutSuccessHandler {
+public class JwtLogoutSuccessHandler {
 //	implements LogoutSuccessHandler {
 //}
 //

@@ -3,24 +3,27 @@ package kr.co.elasticworks.security.jwt;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import kr.co.elasticworks.api.model.UserVO;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import kr.co.elasticworks.api.domain.User;
+
 import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil {
-//	String jwtSecretKey = JwtProperties.JWT_SECRET_KEY;
+	private Logger log = LogManager.getLogger(this.getClass());
 
-//	private Key jwtSecretKey;
 	private Key getSigningKey(String secretKey) {
 		byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
 		return Keys.hmacShaKeyFor(keyBytes);
@@ -53,27 +56,24 @@ public class JwtTokenUtil {
 		return expiration.before(new Date());
 	}
 
-	public String generateAccessToken(UserVO user) {
-		return doGenerateToken(user.getUserId(), JwtProperties.ACTK_EXPIRATION_TIME);
+	public String generateAccessToken(User user) {
+		Map<String, Object> claims = new HashMap<>();
+		return doGenerateToken(claims, user.getUserId(), JwtProperties.ACTK_EXPIRATION_TIME);
 	}
 
-	public String generateRefreshToken(UserVO user) {
-		return doGenerateToken(user.getUserId(), JwtProperties.RFTK_EXPIRATION_TIME);
+	public String generateRefreshToken(User user) {
+		Map<String, Object> claims = new HashMap<>();
+		return doGenerateToken(claims, user.getUserId(), JwtProperties.RFTK_EXPIRATION_TIME);
 	}
 
-	public String doGenerateToken(String userId, long expireTime) {
-
-		Claims claims = Jwts.claims();
-		claims.put("userId", userId);
-
+	public String doGenerateToken(Map<String, Object> claims, String userId, long expireTime) {
 		String jwt = Jwts.builder()
-				.setSubject(userId)
 				.setClaims(claims)
+				.setSubject(userId)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + expireTime))
 				.signWith(getSigningKey(JwtProperties.JWT_SECRET_KEY), SignatureAlgorithm.HS256).compact();
-
-		System.out.println(Jwts.parserBuilder());
+		log.info(jwt);
 		return jwt;
 	}
 

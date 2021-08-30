@@ -1,4 +1,4 @@
-package kr.co.elasticworks.api.model;
+package kr.co.elasticworks.api.domain;
 
 import lombok.Data;
 

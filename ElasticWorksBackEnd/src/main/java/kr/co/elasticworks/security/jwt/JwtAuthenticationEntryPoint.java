@@ -2,7 +2,7 @@ package kr.co.elasticworks.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.co.elasticworks.api.model.JwtResponse;
+import kr.co.elasticworks.api.domain.JwtResponse;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
