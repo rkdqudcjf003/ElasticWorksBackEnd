@@ -16,5 +16,5 @@ public class Board {
 	private int deleteYn;
 	private LocalDateTime insertTime;
 	private LocalDateTime updateTime;
-	private LocalDateTime deleteTime;
+	private LocalDateTime deleteTime; 
 }
