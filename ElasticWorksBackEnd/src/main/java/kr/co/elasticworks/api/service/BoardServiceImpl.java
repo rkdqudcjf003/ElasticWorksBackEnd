@@ -51,10 +51,10 @@ public class BoardServiceImpl implements BoardService {
 				Board board = boardMapper.findByIdx(boardIdx);
 				
 				log.info("Update Board - 수정전 데이터: " + board);
-				board.setBoardTitle(boardVo.getBoardTitle());
-				board.setBoardWriter(boardVo.getBoardWriter());
-				board.setBoardContent(boardVo.getBoardContent());
-				board.setBoardCategory(boardVo.getBoardCategory());
+				board.setTitle(boardVo.getTitle());
+				board.setWriter(boardVo.getWriter());
+				board.setContent(boardVo.getContent());
+				board.setCategory(boardVo.getCategory());
 				log.info("Update Board - 수정후 데이터: " + board);
 				
 				int boardUpdateflag = boardMapper.updateBoard(board);
@@ -81,7 +81,7 @@ public class BoardServiceImpl implements BoardService {
 		} else {
 			try {
 				Board board = boardMapper.findByIdx(boardIdx);
-				board.setBoardDeleteYn(1);
+				board.setDeleteYn(1);
 				
 				int boardDeleteflag = boardMapper.deleteBoard(board);
 

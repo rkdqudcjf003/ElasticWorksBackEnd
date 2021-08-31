@@ -6,13 +6,13 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Comment {
+public class  Comment{
 	private int boardIdx;
-	private int commentIdx;
-	private String commentWriter;
-	private String commentContent;
-	private LocalDateTime commentInsertTime;
-	private LocalDateTime commentUpdateTime;
-	private int commentDeleteYn;
-	private LocalDateTime commentDeleteTime;
+	private int idx;
+	private String writer;
+	private String content;
+	private int deleteYn;
+	private LocalDateTime insertTime;
+	private LocalDateTime updateTime;
+	private LocalDateTime deleteTime;
 }

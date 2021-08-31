@@ -12,7 +12,7 @@ public class CookieUtil {
 	public Cookie createAccessCookie(String cookiename, String value) {
 		Cookie accessToken = new Cookie(cookiename, value);
 //		accessToken.setDomain("localhost:4200");
-		accessToken.setHttpOnly(true);
+		accessToken.setHttpOnly(false);
 		accessToken.setMaxAge(JwtProperties.ACCOOKIE_EXPIRATION_TIME);
 		accessToken.setPath("/");
 		return accessToken;

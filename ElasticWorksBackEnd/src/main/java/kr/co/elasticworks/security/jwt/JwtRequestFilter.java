@@ -44,8 +44,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 	protected void runVaildation(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain)
 			throws CommonException {
-		System.out.println("jwt request filter - 시작부분");
-
+		System.out.println("=======================================================================JWT REQUEST FILTER START!!===================================================================");
+		
 		final Cookie cookieAccessToken = cookieUtil.getCookie(req, "accessToken");
 		final Cookie cookieRefreshToken = cookieUtil.getCookie(req, "refreshToken");
 		

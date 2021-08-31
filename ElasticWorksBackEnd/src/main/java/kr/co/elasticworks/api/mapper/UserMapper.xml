@@ -8,8 +8,8 @@
 		<result column="user_real_name" property="userName" />
 		<result column="user_nick_name" property="userNickName" />
 		<result column="user_phone_number" property="userPhoneNumber" />
-		<result column="user_email1" property="userEmail1" />
-		<result column="user_email2" property="userEmail2" />
+		<result column="user_email_id" property="userEmailId" />
+		<result column="user_email_domain" property="userEmailDomain" />
 		<result column="user_address1" property="userAddress1" />
 		<result column="user_address2" property="userAddress2" />
 		<result column="role_name" property="roleName" />
@@ -23,7 +23,8 @@
 			user_real_name,
 			user_nick_name,
 			user_phone_number,
-			user_email1, user_email2,
+			user_email_id,
+			user_email_domain,
 			user_address1,
 			user_address2,
 			role_name
@@ -41,8 +42,8 @@
 				user_real_name, 
 				user_nick_name, 
 				user_phone_number, 
-				user_email1, 
-				user_email2, 
+				user_email_id,
+				user_email_domain, 
 				user_address1, 
 				user_address2
 				)
@@ -52,8 +53,8 @@
 			#{userRealName}, 
 			#{userNickName}, 
 			#{userPhoneNumber}, 
-			#{userEmail1}, 
-			#{userEmail2}, 
+			#{userEmailId}, 
+			#{userEmailDomain}, 
 			#{userAddress1}, 
 			#{userAddress2}
 			)
@@ -66,8 +67,8 @@
 			user_pwd = #{userPwd},
 			user_nick_name = #{userNickName},
 			user_phone_number = #{userPhoneNumber},
-			user_email1 = #{userEmail1},
-			user_email2 = #{userEmail2},
+			user_email_id = #{userEmailId},
+			user_email_domain2 = #{userEmailDomain},
 			user_address1 = #{userAddress1},
 			user_address2 = #{userAddress2},
 			role_name = #{roleName}

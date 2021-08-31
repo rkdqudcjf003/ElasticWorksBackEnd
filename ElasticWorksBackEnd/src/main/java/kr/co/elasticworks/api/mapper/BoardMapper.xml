@@ -2,48 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.elasticworks.api.mapper.BoardMapper">
 	<resultMap id="BoardResult"	type="Board">
-		<result column="board_idx" property="boardIdx" />
-		<result column="board_title" property="boardTitle" />
-		<result column="board_writer" property="boardWriter" />
-		<result column="board_content" property="boardContent" />
-		<result column="board_category" property="boardCategory" />
-		<result column="board_view" property="boardView" />
-		<result column="board_like_cnt" property="boardLikeCnt" />
-		<result column="board_insert_time" property="boardInsertTime" />
-		<result column="board_update_time" property="boardUpdateTime" />
-		<result column="board_delete_yn" property="boardDeleteYn" />
-		<result column="board_delete_time" property="boardDeleteTime" />
+		<result column="idx" property="idx" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="category" property="category" />
+		<result column="view" property="view" />
+		<result column="like_cnt" property="likeCnt" />
+		<result column="delete_yn" property="deleteYn" />
+		<result column="insert_time" property="insertTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="delete_time" property="deleteTime" />
 	</resultMap>
 	
 	<sql id="BoardColumns">
-		board_idx,
-		board_title,
-		board_writer,
-		board_content,
-		board_category,
-		board_view,
-		board_like_cnt,
-		board_insert_time,
-		board_update_time,
-		board_delete_yn,
-		board_delete_time
+		idx,
+		title,
+		writer,
+		content,
+		category,
+		view,
+		like_cnt,
+		delete_yn,
+		insert_time,
+		update_time,
+		delete_time
 	</sql>
 	
 	<select id="getBoardList" resultMap="BoardResult" parameterType="Board">
 		SELECT
-			board_idx,
-			board_title,
-			board_writer,
-			board_content,
-			board_category,
-			board_view,
-			board_like_cnt,
-			board_insert_time,
-			board_update_time
+			idx,
+			title,
+			writer,
+			content,
+			category,
+			view,
+			like_cnt,
+			insert_time,
+			update_time
 		FROM
 			board
 		WHERE
-			board_delete_yn = "0"
+			delete_yn = 0
 		<!-- 검색 키워드가 있을 때 -->
 		<if test="searchKeyword != null and searchKeyword != ''">
 			<choose>
@@ -69,7 +69,7 @@
 				</otherwise>
 			</choose>
 		</if>
-		ORDER BY board_idx ASC
+		ORDER BY idx ASC
 		LIMIT #{firstBoardIndex}, #{boardsPerPage}
 	</select>
 	
@@ -78,7 +78,7 @@
 		FROM
 			board
 		WHERE
-			delete_yn = 1
+			delete_yn = 0
 		<!-- 검색 키워드가 있을 때 -->
 		<if test="searchKeyword != null and searchKeyword != ''">
 			<choose>
@@ -108,35 +108,35 @@
 	
 	<select id="selectOneBoard" resultMap="BoardResult">
 		SELECT
-			board_idx,
-			board_title,
-			board_writer,
-			board_content,
-			board_category,
-			board_view,
-			board_like_cnt,
-			board_insert_time,
-			board_update_time
+			idx,
+			title,
+			writer,
+			content,
+			category,
+			view,
+			like_cnt,
+			insert_time,
+			update_time
 		FROM
 			board
 		WHERE
-			board_idx = #{boardIdx}
+			idx = #{boardIdx}
 	</select>
 	
 	<insert id="insertBoard">
 		INSERT INTO
 			board (
-				board_title,
-				board_writer,
-				board_content,
-				board_category,
-				board_insert_time
+				title,
+				writer,
+				content,
+				category,
+				insert_time
 				)
 		VALUES (
-			#{boardTitle},
-			#{boardWriter},
-			#{boardContent},
-			#{boardCategory},
+			#{title},
+			#{writer},
+			#{content},
+			#{category},
 			NOW()
 			)
 	</insert>
@@ -145,28 +145,28 @@
 		UPDATE
 			board
 		SET
-			board_title = #{boardTitle},
-			board_writer = #{boardWriter},
-			board_content = #{boardContent},
-			board_category = #{boardCategory},
-			board_update_time = #{boardUpdateTime}
+			title = #{title},
+			writer = #{writer},
+			content = #{content},
+			category = #{category},
+			update_time = #{updateTime}
 		WHERE
-			board_idx = #{boardIdx}
+			idx = #{idx}
 	</update>
 	
 	<update id="deleteBoard" >
 		UPDATE
 			board
 		SET
-			board_delete_yn = 1,
-			board_delete_time = now()
+			delete_yn = 1,
+			delete_time = now()
 		WHERE
-			board_idx = #{boardIdx}
+			idx = #{idx}
 	</update>
 	
 	<select id="findByIdx" resultMap="BoardResult">
 		SELECT
-			board_idx
+			idx
 		FROM
 			board
 	</select>

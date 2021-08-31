@@ -102,17 +102,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		redisService.setDataExpire(refreshJwt, user.getUserId(), JwtProperties.REDIS_EXPIRATION_TIME);
 		logger.info(redisService.getData(refreshJwt));
 		System.out.println("=======================================================================================================================================================================");
-		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("=================================================================================COOKIE================================================================================");		
 		
 		System.out.println("Cookie 생성 시작");
 		CookieUtil cookieUtil = new CookieUtil();
 		System.out.println("CookieUtil 객체생성");
 		Cookie cookieAccess = cookieUtil.createAccessCookie(JwtProperties.ACCESS_TOKEN, accessJwt);
-		res.addCookie(cookieAccess);
 		Cookie cookieRefresh = cookieUtil.createRefreshCookie(JwtProperties.REFRESH_TOKEN, refreshJwt);
+		res.addCookie(cookieAccess);
 		res.addCookie(cookieRefresh);
 		log.info(cookieAccess.getName() + ": " + cookieAccess.getValue());
 		log.info(cookieRefresh.getName() + ": " + cookieRefresh.getValue());
+		System.out.println("=======================================================================================================================================================================");
+		System.out.println("");
+		System.out.println("");
 		System.out.println("==================================================================successfulAuthentication() 함수 종료==================================================================");
 	}
 }
