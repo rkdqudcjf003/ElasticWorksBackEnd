@@ -22,13 +22,23 @@ public class BoardServiceImpl implements BoardService {
 	BoardMapper boardMapper;
 
 	@Override
-	public List<Board> getBoardList(SearchPagingUtil search) throws Exception {
-		return boardMapper.getBoardList(search);
+	public List<Board> getAllBoardList(SearchPagingUtil search) throws Exception {
+		return boardMapper.getAllBoardList(search);
 	}
 
 	@Override
-	public int getBoardListCnt(SearchPagingUtil search) {
-		return boardMapper.getBoardListCnt(search);
+	public int getAllBoardListCnt(SearchPagingUtil search) {
+		return boardMapper.getAllBoardListCnt(search);
+	}
+	
+	@Override
+	public List<Board> getCategoryBoardList(SearchPagingUtil search) throws Exception {
+		return boardMapper.getCategoryBoardList(search);
+	}
+
+	@Override
+	public int getCategoryBoardListCnt(SearchPagingUtil search) {
+		return boardMapper.getCategoryBoardListCnt(search);
 	}
 
 	@Override

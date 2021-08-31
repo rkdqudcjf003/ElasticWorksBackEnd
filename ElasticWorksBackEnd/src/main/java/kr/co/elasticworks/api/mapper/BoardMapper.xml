@@ -29,7 +29,7 @@
 		delete_time
 	</sql>
 	
-	<select id="getBoardList" resultMap="BoardResult" parameterType="Board">
+	<select id="getAllBoardList" resultMap="BoardResult" parameterType="Board">
 		SELECT
 			idx,
 			title,
@@ -73,7 +73,7 @@
 		LIMIT #{firstBoardIndex}, #{boardsPerPage}
 	</select>
 	
-	<select id="getBoardListCnt" resultType="int" parameterType="Board">
+	<select id="getAllBoardListCnt" resultType="int" parameterType="Board">
 		SELECT count(*)
 		FROM
 			board
@@ -104,6 +104,87 @@
 				</otherwise>
 			</choose>
 		</if>
+	</select>
+	
+	<select id="getCategoryBoardList" resultMap="BoardResult" parameterType="Board">
+		SELECT
+			idx,
+			title,
+			writer,
+			content,
+			category,
+			view,
+			like_cnt,
+			insert_time,
+			update_time
+		FROM
+			board
+		WHERE
+			delete_yn = 0
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'title'.equals(searchType)">
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND content LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'writer'.equals(searchType)">
+							AND writer LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</when> 
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND (title LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR content LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR writer LIKE CONCAT('%', #{searchKeyword}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		AND
+			category = #{category}
+		ORDER BY idx ASC
+		LIMIT #{firstBoardIndex}, #{boardsPerPage}
+	</select>
+	
+	<select id="getCategoryBoardListCnt" resultType="int" parameterType="Board">
+		SELECT count(*)
+		FROM
+			board
+		WHERE
+			delete_yn = 0
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'title'.equals(searchType)">
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND content LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'writer'.equals(searchType)">
+							AND writer LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND (title LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR content LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR writer LIKE CONCAT('%', #{searchKeyword}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		AND
+			category = #{category}
 	</select>
 	
 	<select id="selectOneBoard" resultMap="BoardResult">

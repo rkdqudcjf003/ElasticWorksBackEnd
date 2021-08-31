@@ -6,7 +6,8 @@ import lombok.Data;
 public class SearchPagingUtil {
 	private String searchType;
 	private String searchKeyword;
-
+	private int category;
+	
 	private int currentPageNo;
 
 //	private int[] boardNumber; // 뷰에서 보여질 게시글 번호(유동적)
@@ -30,6 +31,7 @@ public class SearchPagingUtil {
 		this.currentPageNo = 1;
 		this.boardsPerPage = 10;
 		this.pageSize = 10;
+		this.category = 0;
 	}
 
 	public void setCurrentPageNo(int currentPageNo) {
@@ -42,6 +44,10 @@ public class SearchPagingUtil {
 
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
+	}
+	
+	public void setCategory(int category) {
+		this.category = category;
 	}
 
 	public SearchPagingUtil(int currentPageNo, int boardsPerPage, int pageSize) {

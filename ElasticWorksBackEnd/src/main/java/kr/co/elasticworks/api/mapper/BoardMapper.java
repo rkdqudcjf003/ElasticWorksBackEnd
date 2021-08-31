@@ -9,9 +9,13 @@ import kr.co.elasticworks.api.domain.SearchPagingUtil;
 
 @Mapper
 public interface BoardMapper {
-	public List<Board> getBoardList(SearchPagingUtil search);
+	public List<Board> getAllBoardList(SearchPagingUtil search);
 
-	public int getBoardListCnt(SearchPagingUtil search);
+	public int getAllBoardListCnt(SearchPagingUtil search);
+	
+	public List<Board> getCategoryBoardList(SearchPagingUtil search);
+
+	public int getCategoryBoardListCnt(SearchPagingUtil search);
 
 	public Board selectOneBoard(int boardIdx);
 

@@ -75,13 +75,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return user;
 
 	}
-	
-//	@Override
-//	public UserVO loginUser(String userId, String userPassword) throws Exception {
-//		UserVO user = userMapper.findByUserId(userId);
-//		
-//		if (user == null) throw new Exception("멤버가 조회되지 않음");
-//		return user;
-//	}
-
 }

@@ -7,9 +7,13 @@ import kr.co.elasticworks.api.domain.SearchPagingUtil;
 
 
 public interface BoardService {
-	public List<Board> getBoardList(SearchPagingUtil search) throws Exception;
+	public List<Board> getAllBoardList(SearchPagingUtil search) throws Exception;
 	
-	public int getBoardListCnt(SearchPagingUtil search);
+	public int getAllBoardListCnt(SearchPagingUtil search);
+
+	public List<Board> getCategoryBoardList(SearchPagingUtil search) throws Exception;
+	
+	public int getCategoryBoardListCnt(SearchPagingUtil search);
 	
 	public Board selectOneBoard(int boardIdx);
 
