@@ -13,8 +13,8 @@ public class Board {
 	private int category;
 	private int view;
 	private int likeCnt;
+	private int deleteYn;
 	private LocalDateTime insertTime;
 	private LocalDateTime updateTime;
-	private int deleteYn;
 	private LocalDateTime deleteTime;
 }
