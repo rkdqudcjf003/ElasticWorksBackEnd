@@ -86,6 +86,8 @@ public class AdminController {
 
 	@PostMapping(value = "/insert")
 	public int insertBoard(@RequestBody Board boardVo) throws Exception {
+		System.out.println(boardVo);
+		System.out.println("insertBoard실행");
 		return boardService.insertBoard(boardVo);
 	}
 
