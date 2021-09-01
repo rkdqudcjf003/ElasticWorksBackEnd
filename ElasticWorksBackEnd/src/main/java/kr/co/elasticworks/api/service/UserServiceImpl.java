@@ -61,7 +61,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 		return userMapper.updateUser(user);
 	}
-
+	
+	//전체 유저 리스트 출력
+	@Override
+	public User selectAllUser() throws Exception{
+		System.out.println("selectAllUser실행");
+		return userMapper.selectAllUser();
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		System.out.println("========================== UserServiceImpl의 loadUserByUsername() ==========================");

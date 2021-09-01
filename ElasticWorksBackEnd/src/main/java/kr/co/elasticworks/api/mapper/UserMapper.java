@@ -22,4 +22,6 @@ public interface UserMapper {
 	int findRoleNo(@Param("roleName") String roleName);
 	
 	String findByUserPwd(String id);
+	
+	User selectAllUser(); 
 }

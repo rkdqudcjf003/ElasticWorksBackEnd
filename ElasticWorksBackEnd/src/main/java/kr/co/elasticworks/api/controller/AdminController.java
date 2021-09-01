@@ -31,8 +31,9 @@ public class AdminController {
 	
 	//userList 출력
 	@RequestMapping(value="/userList")
-	public String userList() {
+	public String userList() throws Exception {
 		System.out.println("userListController 실행");
+		userService.selectAllUser();
 		return "굿";
 	}
 	
@@ -86,6 +87,8 @@ public class AdminController {
 
 	@PostMapping(value = "/insert")
 	public int insertBoard(@RequestBody Board boardVo) throws Exception {
+		System.out.println(boardVo);
+		System.out.println("insertBoard실행");
 		return boardService.insertBoard(boardVo);
 	}
 
