@@ -38,15 +38,15 @@ public class AdminController {
 	
 	//(전체 or 카테고리별) and (검색키워드 or 검색유형별) list 출력
 	@GetMapping(value = "/boardList")
-	public Map<String, Object> boardList(@RequestParam(value = "page_no", required = false) int page_no,
+	public Map<String, Object> boardList(@RequestParam(value = "pageNo", required = false) int pageNo,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "type", required = false) String type,
-			@RequestParam(value = "category", required = false) int categoryIdx) throws Exception {
+			@RequestParam(value = "categoryIdx", required = false) int categoryIdx) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		SearchPagingUtil search = new SearchPagingUtil();
 
-		if (page_no <= 0)
-			page_no = 1;
+		if (pageNo <= 0)
+			pageNo = 1;
 
 		if (keyword == null)
 			keyword = "";
@@ -57,7 +57,7 @@ public class AdminController {
 		if (categoryIdx <= 0)
 			categoryIdx = 0;
 
-		search.setCurrentPageNo(page_no);
+		search.setCurrentPageNo(pageNo);
 		search.setSearchKeyword(keyword);
 		search.setSearchType(type);
 		search.setCategory(categoryIdx);
