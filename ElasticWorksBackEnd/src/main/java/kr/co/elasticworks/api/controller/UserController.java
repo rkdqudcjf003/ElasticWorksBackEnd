@@ -42,5 +42,5 @@ public class UserController {
 	public String welcomePage() {
 		return "Hello. you have valid JWT (JSon Web Token)!";
 	}
-
+	
 }
