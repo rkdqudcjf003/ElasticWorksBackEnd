@@ -29,15 +29,15 @@ public class BoardController {
 	private BoardService boardService;
 
 	@GetMapping(value = "/list")
-	public Map<String, Object> boardList(@RequestParam(value = "page_no", required = false) int page_no,
+	public Map<String, Object> boardList(@RequestParam(value = "pageNo", required = false) int pageNo,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "type", required = false) String type,
-			@RequestParam(value = "category", required = false) int categoryIdx) throws Exception {
+			@RequestParam(value = "categoryIdx", required = false) int categoryIdx) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		SearchPagingUtil search = new SearchPagingUtil();
 
-		if (page_no <= 0)
-			page_no = 1;
+		if (pageNo <= 0)
+			pageNo = 1;
 
 		if (keyword == null)
 			keyword = "";
@@ -48,7 +48,7 @@ public class BoardController {
 		if (categoryIdx <= 0)
 			categoryIdx = 0;
 
-		search.setCurrentPageNo(page_no);
+		search.setCurrentPageNo(pageNo);
 		search.setSearchKeyword(keyword);
 		search.setSearchType(type);
 		search.setCategory(categoryIdx);

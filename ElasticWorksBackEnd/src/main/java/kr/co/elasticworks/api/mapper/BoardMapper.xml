@@ -151,11 +151,18 @@
 			title,
 			writer,
 			content,
-			category,
 			view,
 			like_cnt,
 			insert_time,
-			update_time
+			update_time,
+			(
+			SELECT
+				c.name
+			FROM
+				category c
+			WHERE
+				c.idx = b.category_idx
+			) category_name
 		FROM
 			board
 		WHERE
@@ -168,14 +175,14 @@
 				title,
 				writer,
 				content,
-				category,
+				category_idx,
 				insert_time
 				)
 		VALUES (
 			#{title},
 			#{writer},
 			#{content},
-			#{category},
+			#{categoryIdx},
 			NOW()
 			)
 	</insert>
@@ -187,7 +194,7 @@
 			title = #{title},
 			writer = #{writer},
 			content = #{content},
-			category = #{category},
+			category_idx = #{categoryIdx},
 			update_time = NOW()
 		WHERE
 			idx = #{idx}
@@ -206,10 +213,6 @@
 	<select id="findByIdx" resultMap="BoardResult">
 		SELECT
 			idx
-			<!-- title,
-			writer,
-			content,
-			category -->
 		FROM
 			board
 		WHERE
