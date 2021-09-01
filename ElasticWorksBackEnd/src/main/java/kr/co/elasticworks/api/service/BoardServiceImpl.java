@@ -48,16 +48,13 @@ public class BoardServiceImpl implements BoardService {
 			return 0;
 		} else {
 				Board upBoard = boardMapper.findByIdx(idx);
-				System.out.println(board);
-				log.info("Update Board - 수정전 데이터: " + board);
-				board.setTitle(upBoard.getTitle());
-				board.setWriter(upBoard.getWriter());
-				board.setContent(upBoard.getContent());
-				board.setCategoryIdx(upBoard.getCategoryIdx());
-				log.info("Update Board - 수정후 데이터: " + board);
 				
-				int boardUpdateflag = boardMapper.updateBoard(board);
-				System.out.println();
+				upBoard.setTitle(board.getTitle());
+				upBoard.setWriter(board.getWriter());
+				upBoard.setContent(board.getContent());
+				upBoard.setCategoryIdx(board.getCategoryIdx());
+				
+				int boardUpdateflag = boardMapper.updateBoard(upBoard);
 				if (boardUpdateflag > 0) {
 					return 1;
 				}
@@ -66,16 +63,16 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteBoard(int idx, Board board) {
+	public int deleteOneBoard(int idx) {
 		if (idx <= 0) {
 			log.info("잘못된 접근 혹은 존재하지 않는 게시글입니다.");
 			return 0;
 		} else {
 			try {
 				Board delBoard = boardMapper.findByIdx(idx);
-				board.setDeleteYn(1);
+				delBoard.setDeleteYn(1);
 				
-				int boardDeleteflag = boardMapper.deleteBoard(delBoard);
+				int boardDeleteflag = boardMapper.deleteOneBoard(delBoard);
 
 				if (boardDeleteflag > 0) {
 					log.info("게시글이 삭제되었습니다.");

@@ -85,19 +85,21 @@
 				)
 		</if>
 		ORDER BY
-			idx
+			b.idx
 		ASC
 		LIMIT
 			#{firstBoardIndex},
 			#{boardsPerPage}
 	</select>
 	
+	
 	<select id="getBoardListCnt" resultType="int" parameterType="Board">
-		SELECT count(*)
+		SELECT
+			count(*)
 		FROM
-			board
+			board b
 		WHERE
-			delete_yn = 0
+			b.delete_yn = 0
 		<!-- 검색 키워드가 있을 때 -->
 		<if test="searchKeyword != null and searchKeyword != ''">
 			<choose>
@@ -147,14 +149,14 @@
 	
 	<select id="selectOneBoard" resultMap="BoardResult">
 		SELECT
-			idx,
-			title,
-			writer,
-			content,
-			view,
-			like_cnt,
-			insert_time,
-			update_time,
+			b.idx,
+			b.title,
+			b.writer,
+			b.content,
+			b.view,
+			b.like_cnt,
+			b.insert_time,
+			b.update_time,
 			(
 			SELECT
 				c.name
@@ -164,19 +166,19 @@
 				c.idx = b.category_idx
 			) category_name
 		FROM
-			board
+			board b
 		WHERE
-			idx = #{idx}
+			b.idx = #{idx}
 	</select>
 	
 	<insert id="insertBoard">
 		INSERT INTO
-			board (
-				title,
-				writer,
-				content,
-				category_idx,
-				insert_time
+			board b (
+				b.title,
+				b.writer,
+				b.content,
+				b.category_idx,
+				b.insert_time
 				)
 		VALUES (
 			#{title},
@@ -189,33 +191,33 @@
 	
 	<update id="updateBoard" >
 		UPDATE
-			board
+			board b
 		SET
-			title = #{title},
-			writer = #{writer},
-			content = #{content},
-			category_idx = #{categoryIdx},
-			update_time = NOW()
+			b.title = #{title},
+			b.writer = #{writer},
+			b.content = #{content},
+			b.category_idx = #{categoryIdx},
+			b.update_time = NOW()
 		WHERE
-			idx = #{idx}
+			b.idx = #{idx}
 	</update>
 	
-	<update id="deleteBoard" >
+	<update id="deleteOneBoard" >
 		UPDATE
-			board
+			board b
 		SET
-			delete_yn = 1,
-			delete_time = now()
+			b.delete_yn = 1,
+			b.delete_time = now()
 		WHERE
-			idx = #{idx}
+			b.idx = #{idx}
 	</update>
 	
 	<select id="findByIdx" resultMap="BoardResult">
 		SELECT
-			idx
+			b.idx
 		FROM
-			board
+			board b
 		WHERE
-			idx = #{idx} 
+			b.idx = #{idx} 
 	</select>
 </mapper>

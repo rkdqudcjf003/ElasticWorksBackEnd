@@ -80,13 +80,13 @@ public class BoardController {
 	}
 
 	@PutMapping(value = "/{idx}")
-	public int updateBoard(@PathVariable("idx") int idx, Board board) throws Exception {
+	public int updateBoard(@RequestBody @PathVariable("idx") int idx, @RequestBody  Board board) throws Exception {
 		return boardService.updateBoard(idx, board);
 	}
 
 	@PutMapping(value = "/delete/{idx}")
-	public int deleteBoard(@PathVariable("idx") int idx, Board boardVo) throws Exception {
-		return boardService.deleteBoard(idx, boardVo);
+	public int deleteOneBoard(@PathVariable("idx") int idx) throws Exception {
+		return boardService.deleteOneBoard(idx);
 	}
 
 }
