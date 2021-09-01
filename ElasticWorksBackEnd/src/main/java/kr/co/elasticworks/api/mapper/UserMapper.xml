@@ -33,7 +33,23 @@
 		WHERE
 			user_id = #{userId}
 	</select>
-
+	
+	<select id="selectAllUser" resultType="User">
+		SELECT 
+		 user_no,
+		 user_id, 
+		 user_pwd, 
+		 user_real_name,
+		 user_nick_name,
+		 user_phone_number,
+		 user_email_id,
+		 user_email_domain,
+		 user_address1,
+		 user_address2
+		FROM user
+	</select>
+	
+	
 	<insert id="insertUser">
 		INSERT INTO
 			user (

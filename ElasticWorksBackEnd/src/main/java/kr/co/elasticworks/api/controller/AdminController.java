@@ -31,8 +31,9 @@ public class AdminController {
 	
 	//userList 출력
 	@RequestMapping(value="/userList")
-	public String userList() {
+	public String userList() throws Exception {
 		System.out.println("userListController 실행");
+		userService.selectAllUser();
 		return "굿";
 	}
 	

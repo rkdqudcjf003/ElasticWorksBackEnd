@@ -8,4 +8,7 @@ public interface UserService {
 	public int updateUser(String userId, User userVo) throws Exception;
 
 	public User selectOneUser(String userId) throws Exception;
+	
+	public User selectAllUser() throws Exception;
+		
 }
