@@ -6,7 +6,7 @@ import lombok.Data;
 public class SearchPagingUtil {
 	private String searchType;
 	private String searchKeyword;
-	private int category;
+	private int categoryIdx;
 	
 	private int currentPageNo;
 
@@ -31,7 +31,7 @@ public class SearchPagingUtil {
 		this.currentPageNo = 1;
 		this.boardsPerPage = 10;
 		this.pageSize = 10;
-		this.category = 0;
+		this.categoryIdx = 0;
 	}
 
 	public void setCurrentPageNo(int currentPageNo) {
@@ -47,7 +47,7 @@ public class SearchPagingUtil {
 	}
 	
 	public void setCategory(int category) {
-		this.category = category;
+		this.categoryIdx = category;
 	}
 
 	public SearchPagingUtil(int currentPageNo, int boardsPerPage, int pageSize) {

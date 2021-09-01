@@ -7,20 +7,16 @@ import kr.co.elasticworks.api.domain.SearchPagingUtil;
 
 
 public interface BoardService {
-	public List<Board> getAllBoardList(SearchPagingUtil search) throws Exception;
+	public List<Board> getBoardList(SearchPagingUtil search) throws Exception;
 	
-	public int getAllBoardListCnt(SearchPagingUtil search);
-
-	public List<Board> getCategoryBoardList(SearchPagingUtil search) throws Exception;
+	public int getBoardListCnt(SearchPagingUtil search);
 	
-	public int getCategoryBoardListCnt(SearchPagingUtil search);
-	
-	public Board selectOneBoard(int boardIdx);
+	public Board selectOneBoard(int idx);
 
 	public int insertBoard(Board boardVo);
 
-	public int updateBoard(int boardIdx, Board boardVo);
+	public int updateBoard(int idx, Board board);
 	
-	public int deleteBoard(int boardIdx, Board boardVo);
+	public int deleteBoard(int idx, Board board);
 
 }

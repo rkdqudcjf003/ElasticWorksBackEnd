@@ -38,7 +38,7 @@ public class AdminController {
 	public Map<String, Object> boardList(@RequestParam(value = "page_no", required = false) int page_no,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "type", required = false) String type,
-			@RequestParam(value = "category", required = false) int category) throws Exception {
+			@RequestParam(value = "category", required = false) int categoryIdx) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		SearchPagingUtil search = new SearchPagingUtil();
 
@@ -50,39 +50,28 @@ public class AdminController {
 
 		if (type == null)
 			type = "";
-		
-		if (category <= 0)
-			category = 0;
-		
+
+		if (categoryIdx <= 0)
+			categoryIdx = 0;
+
 		search.setCurrentPageNo(page_no);
 		search.setSearchKeyword(keyword);
 		search.setSearchType(type);
-		
+		search.setCategory(categoryIdx);
+
 		int boardTotalCount = 0;
-		
-		if (category == 0) {
-			boardTotalCount = boardService.getAllBoardListCnt(search);
-			System.out.println("전체전체");
-		} else if (category > 0){
-			search.setCategory(category);
-			boardTotalCount = boardService.getCategoryBoardListCnt(search);
-			System.out.println("카테고리");
-		}
-		System.out.println(boardTotalCount);
+
+		boardTotalCount = boardService.getBoardListCnt(search);
+
 		search.setTotalBoardCount(boardTotalCount);
 
 		List<Board> boardList = null;
-
-		if (boardTotalCount > 0 && category == 0) {
-			boardList = boardService.getAllBoardList(search);
-		} else if (boardTotalCount > 0 && category > 0) {
-			search.setCategory(category);
-			boardList = boardService.getCategoryBoardList(search);
-		}
+		
+		boardList = boardService.getBoardList(search);
 
 		result.put("pageInfo", search);
 		result.put("boardList", boardList);
-
+		
 		return result;
 	}
 	

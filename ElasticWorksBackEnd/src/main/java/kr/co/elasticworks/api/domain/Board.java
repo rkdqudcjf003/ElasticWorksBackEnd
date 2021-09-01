@@ -10,7 +10,8 @@ public class Board {
 	private String title;
 	private String writer;
 	private String content;
-	private int category;
+	private int categoryIdx;
+	private String categoryName;
 	private int view;
 	private int likeCnt;
 	private int deleteYn;

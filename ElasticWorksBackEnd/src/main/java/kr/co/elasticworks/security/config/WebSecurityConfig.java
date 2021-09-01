@@ -102,16 +102,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  			 .antMatchers(HttpMethod.POST, "/api/admin/**").hasRole("ADMIN")
  			 .and()
 			 .authorizeRequests()
- 			 .antMatchers().authenticated()
- 			 .and()
-			 .authorizeRequests()
 			 .antMatchers("/test/logoutResult").permitAll()
 			 .and()
  			 .authorizeRequests()
 			 .antMatchers("/test/redis").permitAll()
 			 .and()
  			 .authorizeRequests()
-			 .anyRequest().permitAll();
+			 .anyRequest().authenticated();
      	 
      	 http
      	 	 .logout()
