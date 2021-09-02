@@ -63,13 +63,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteOneBoard(int idx) {
+	public int deleteOneBoard(int idx, Board board) {
 		if (idx <= 0) {
 			log.info("잘못된 접근 혹은 존재하지 않는 게시글입니다.");
 			return 0;
 		} else {
-			try {
+//			try {
 				Board delBoard = boardMapper.findByIdx(idx);
+				System.out.println(delBoard);
 				delBoard.setDeleteYn(1);
 				
 				int boardDeleteflag = boardMapper.deleteOneBoard(delBoard);
@@ -78,12 +79,12 @@ public class BoardServiceImpl implements BoardService {
 					log.info("게시글이 삭제되었습니다.");
 					return 1;
 				}
-			} catch (DataAccessException e) {
-				log.info("DataBase 처리 과정 문제 발생.");
-
-			} catch (Exception e) {
-				log.info("시스템 문제 발생.");
-			}
+//			} catch (DataAccessException e) {
+//				log.info("DataBase 처리 과정 문제 발생.");
+//
+//			} catch (Exception e) {
+//				log.info("시스템 문제 발생.");
+//			}
 
 			log.info("게시글이 삭제되지 않았습니다.");
 			return 0;

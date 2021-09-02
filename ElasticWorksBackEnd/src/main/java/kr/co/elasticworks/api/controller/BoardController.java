@@ -60,12 +60,12 @@ public class BoardController {
 		search.setTotalBoardCount(boardTotalCount);
 
 		List<Board> boardList = null;
-		
+
 		boardList = boardService.getBoardList(search);
 
 		result.put("pageInfo", search);
 		result.put("boardList", boardList);
-		
+
 		return result;
 	}
 
@@ -80,13 +80,13 @@ public class BoardController {
 	}
 
 	@PutMapping(value = "/{idx}")
-	public int updateBoard(@RequestBody @PathVariable("idx") int idx, @RequestBody  Board board) throws Exception {
+	public int updateBoard(@RequestBody @PathVariable("idx") int idx, @RequestBody Board board) throws Exception {
 		return boardService.updateBoard(idx, board);
 	}
 
 	@PutMapping(value = "/delete/{idx}")
-	public int deleteOneBoard(@PathVariable("idx") int idx) throws Exception {
-		return boardService.deleteOneBoard(idx);
+	public int deleteOneBoard(@RequestBody @PathVariable("idx") int idx, @RequestBody Board board) throws Exception {
+		return boardService.deleteOneBoard(idx, board);
 	}
 
 }

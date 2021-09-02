@@ -173,12 +173,12 @@
 	
 	<insert id="insertBoard">
 		INSERT INTO
-			board b (
-				b.title,
-				b.writer,
-				b.content,
-				b.category_idx,
-				b.insert_time
+			board (
+				title,
+				writer,
+				content,
+				category_idx,
+				insert_time
 				)
 		VALUES (
 			#{title},
@@ -186,7 +186,7 @@
 			#{content},
 			#{categoryIdx},
 			NOW()
-			)
+			) 
 	</insert>
 	
 	<update id="updateBoard" >
@@ -206,7 +206,7 @@
 		UPDATE
 			board b
 		SET
-			b.delete_yn = 1,
+			b.delete_yn = #{deleteYn},
 			b.delete_time = now()
 		WHERE
 			b.idx = #{idx}
