@@ -98,8 +98,8 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/delete/{boardIdx}")
-	public int deleteOneBoard(@PathVariable("boardIdx") int boardIdx, Board boardVo) throws Exception {
-		return boardService.deleteOneBoard(boardIdx);
+	public int deleteOneBoard(@PathVariable("boardIdx") int boardIdx, Board board) throws Exception {
+		return boardService.deleteOneBoard(boardIdx, board);
 	}
 	
 }

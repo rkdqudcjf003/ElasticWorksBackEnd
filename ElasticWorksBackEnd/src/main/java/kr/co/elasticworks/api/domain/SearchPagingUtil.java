@@ -74,22 +74,6 @@ public class SearchPagingUtil {
 		}
 	}
 
-//	public void setBoardNumber(int currentPageNo) {
-//		if (this.currentPageNo != currentPageNo) {
-//			this.boardNumber = int[] boardNumber;
-//		}
-//		if (currentPageNo * boardsPerPage >= boardsTotalCount) {
-//			for (int i = (currentPageNo * boardsPerPage) - 9; i <= boardsTotalCount; i++) {
-//				boardNumber[i - 1] = i;
-//
-//			}
-//		} else {
-//			for (int j = (currentPageNo * boardsPerPage) - 9; j <= (currentPageNo * boardsPerPage); j++) {
-//				boardNumber[j - 1] = j;
-//			}
-//		}
-//	}
-
 	private void calculation() {
 
 		/* 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장) */

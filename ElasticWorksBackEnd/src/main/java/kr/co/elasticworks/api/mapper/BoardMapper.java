@@ -21,6 +21,6 @@ public interface BoardMapper {
 
 	public Board findByIdx(int idx);
 	
-	public int deleteOneBoard(Board delBoard);
+	public int deleteOneBoard(Board board);
 
 }
