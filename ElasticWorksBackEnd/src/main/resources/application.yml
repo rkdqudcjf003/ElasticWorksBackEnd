@@ -12,7 +12,7 @@ spring:
       idle-timeout: 300
       max-lifetime: 300
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbc-url: jdbc:log4jdbc:mariadb://localhost:3308/elasticworks?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+      jdbc-url: jdbc:log4jdbc:mariadb://192.168.0.2:3308/elasticworks?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
 #      192.168.0.2:3308
       username: elkwks
       password: 1234
@@ -24,7 +24,7 @@ spring:
     type: redis
 #Redis 
   redis:
-    host: localhost
+    host: 192.168.0.2
     password: 1q2w3e4r
     port: 6379
     lettuce:

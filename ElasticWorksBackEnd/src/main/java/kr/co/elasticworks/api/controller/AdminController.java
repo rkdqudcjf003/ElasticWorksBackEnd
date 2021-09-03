@@ -116,7 +116,7 @@ public class AdminController {
 	
 	//전체 팝업 리스트
 	@GetMapping(value="/popupList")
-	public Popup popupList() throws Exception {
+	public List<Popup> popupList() throws Exception {
 		System.out.println("popupListController 실행");
 		return popupService.popupAllList();
 	}
