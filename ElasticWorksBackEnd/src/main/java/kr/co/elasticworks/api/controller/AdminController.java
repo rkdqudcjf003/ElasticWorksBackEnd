@@ -80,8 +80,8 @@ public class AdminController {
 	}
 	
 	//게시판 조회
-	@GetMapping(value = "/read/{boardIdx}")
-	public Board selectOneBoard(@PathVariable("boardIdx") int boardIdx) throws Exception {
+	@GetMapping(value = "/read/{idx}")
+	public Board selectOneBoard(@PathVariable("idx") int boardIdx) throws Exception {
 		System.out.println("selectOneBoardController실행");
 		return boardService.selectOneBoard(boardIdx);
 	}
@@ -98,16 +98,10 @@ public class AdminController {
 		return boardService.updateBoard(idx, board);
 	}
 
-<<<<<<< HEAD
-	@PutMapping(value = "/delete/{idx}")
-	public int deleteOneBoard(@PathVariable("idx") int idx) throws Exception {
-		System.out.println("deleteOneBoardController 실행");
-		return boardService.deleteOneBoard(idx);
-=======
-	@PostMapping(value = "/delete/{boardIdx}")
-	public int deleteOneBoard(@PathVariable("boardIdx") int boardIdx, Board board) throws Exception {
+
+	@PostMapping(value = "/delete/{idx}")
+	public int deleteOneBoard(@PathVariable("idx") int boardIdx, Board board) throws Exception {
 		return boardService.deleteOneBoard(boardIdx, board);
->>>>>>> branch 'master' of https://github.com/rkdqudcjf003/ElasticWorksBackEnd.git
 	}
 
 	
