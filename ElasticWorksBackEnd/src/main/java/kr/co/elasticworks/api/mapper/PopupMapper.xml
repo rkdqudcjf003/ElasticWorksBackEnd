@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.elasticworks.api.mapper.PopupMapper">
+
+	<select id="selectAllPopupList" resultType="Popup">
+		SELECT 
+			idx,
+			title, 
+			content, 
+			start_time, 
+			end_time, 
+			use_or_not
+		FROM 
+			popup
+	</select>
+
+</mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.elasticworks.api.domain.Board;
+import kr.co.elasticworks.api.domain.Popup;
 import kr.co.elasticworks.api.domain.SearchPagingUtil;
 import kr.co.elasticworks.api.domain.User;
 import kr.co.elasticworks.api.service.BoardService;
+import kr.co.elasticworks.api.service.PopupService;
 import kr.co.elasticworks.api.service.UserService;
 
 @RestController
@@ -29,6 +32,10 @@ public class AdminController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Qualifier("popup")
+	@Autowired
+	PopupService popupService;
 	
 	//userList 출력
 	@RequestMapping(value="/userList")
@@ -44,6 +51,7 @@ public class AdminController {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "type", required = false) String type,
 			@RequestParam(value = "categoryIdx", required = false) int categoryIdx) throws Exception {
+		System.out.println("boardListController실행");
 		Map<String, Object> result = new HashMap<>();
 		SearchPagingUtil search = new SearchPagingUtil();
 
@@ -87,28 +95,33 @@ public class AdminController {
 		return boardService.selectOneBoard(boardIdx);
 	}
 
+	//게시판 생성
 	@PostMapping(value = "/insert")
 	public int insertBoard(@RequestBody Board boardVo) throws Exception {
 		System.out.println("insertBoardController실행");
 		return boardService.insertBoard(boardVo);
 	}
 	
+	//게시판 수정
 	@PutMapping(value = "/{idx}")
 	public int updateBoard(@PathVariable("idx") int idx, @RequestBody  Board board) throws Exception {
 		System.out.println("updateBoardController 실행");
 		return boardService.updateBoard(idx, board);
 	}
-
-<<<<<<< HEAD
+	
+	
+	//게시판 삭제
 	@PutMapping(value = "/delete/{idx}")
-	public int deleteOneBoard(@PathVariable("idx") int idx) throws Exception {
+	public int deleteOneBoard(@PathVariable("idx") int idx, @RequestBody Board board) throws Exception {
 		System.out.println("deleteOneBoardController 실행");
-		return boardService.deleteOneBoard(idx);
-=======
-	@PostMapping(value = "/delete/{boardIdx}")
-	public int deleteOneBoard(@PathVariable("boardIdx") int boardIdx, Board board) throws Exception {
-		return boardService.deleteOneBoard(boardIdx, board);
->>>>>>> branch 'master' of https://github.com/rkdqudcjf003/ElasticWorksBackEnd.git
+		return boardService.deleteOneBoard(idx, board);
+	}
+	
+	//전체 팝업 리스트
+	@GetMapping(value="/popupList")
+	public Popup popupList() throws Exception {
+		System.out.println("popupListController 실행");
+		return popupService.popupAllList();
 	}
 
 	
