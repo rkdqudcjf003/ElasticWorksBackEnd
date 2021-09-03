@@ -10,4 +10,8 @@ import kr.co.elasticworks.api.domain.Popup;
 public interface PopupMapper {
 
 	List<Popup> selectAllPopupList() throws Exception;
+	Popup selectOnePopup() throws Exception;
+	int createPopup() throws Exception;
+	int updatePopup() throws Exception;
+	int deletePopup() throws Exception;
 }

@@ -1,6 +1,7 @@
 package kr.co.elasticworks.api.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -116,8 +117,30 @@ public class AdminController {
 	
 	//전체 팝업 리스트
 	@GetMapping(value="/popupList")
-	public List<Popup> popupList() throws Exception {
+	public Map<String, Object> popupList() throws Exception {
 		System.out.println("popupListController 실행");
-		return popupService.popupAllList();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Popup> popupList = popupService.popupAllList();
+		map.put("popupList", popupList);
+		return map;
 	}
+	
+	@GetMapping(value="/selectOnePopup")
+	public Popup selectOnePopup() throws Exception{
+		return popupService.selectOnePopup();
+	};
+	
+	@GetMapping(value="/selectOnePopup")
+	public int createPopup() throws Exception{
+		return popupService.createPopup();
+	};
+	
+	public int updatePopup() throws Exception{
+		return popupService.updatePopup();
+	};
+	
+	public int deletePopup() throws Exception{
+		return popupService.deletePopup();
+	};
+	
 }

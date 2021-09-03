@@ -14,4 +14,57 @@
 			popup
 	</select>
 
+	<select id="selectOnePopup" parameterType="int" resultType="Popup">
+		SELECT 
+			idx,
+			title, 
+			content, 
+			start_time, 
+			end_time, 
+			use_or_not
+		FROM 
+			popup
+		WHERE
+			idx=#{idx}
+	</select>
+	
+	<insert id="createPopup" parameterType="Popup">
+		INSERT INTO
+			popup(
+				title,
+				content,
+				start_time,
+				end_time,
+				use_or_not
+			)
+				
+		VALUES(
+			#{title},
+			#{content},
+			#{startTime},
+			#{endTime},
+			#{useOrNot}
+		)
+	</insert>
+	
+	<update id="updatePopup" parameterType="Popup">
+		UPDATE 
+			popup 
+		SET
+			title=#{title},
+			content=#{content},
+			start_time=#{startTime},
+			end_time=#{endTime},
+			use_or_not=#{useOrNot}
+		WHERE
+			idx=#{idx}
+	</update>
+	
+	<delete id="deletePopup">
+		DELETE FROM
+			popup
+		WHERE
+			idx=#{idx}
+	</delete>
+	
 </mapper>
