@@ -69,7 +69,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		// 유저네임패스워드 토큰 생성
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-				loginRequestDto.getUserId(), loginRequestDto.getUserPwd());
+				loginRequestDto.getId(), loginRequestDto.getPwd());
 
 		setDetails(request, authenticationToken);
 		System.out.println("JWT AuthenticationFilter: 토큰생성완료");
@@ -99,7 +99,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		System.out.println("=================================================================================REDIS=================================================================================");
 		
 //		String Key = redisData.getRedisStoreKey();
-		redisService.setDataExpire(refreshJwt, user.getUserId(), JwtProperties.REDIS_EXPIRATION_TIME);
+		redisService.setDataExpire(refreshJwt, user.getId(), JwtProperties.REDIS_EXPIRATION_TIME);
 		logger.info(redisService.getData(refreshJwt));
 		System.out.println("=======================================================================================================================================================================");
 		System.out.println("");

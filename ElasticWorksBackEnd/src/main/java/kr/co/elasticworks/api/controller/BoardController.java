@@ -51,7 +51,7 @@ public class BoardController {
 		search.setCurrentPageNo(pageNo);
 		search.setSearchKeyword(keyword);
 		search.setSearchType(type);
-		search.setCategory(categoryIdx);
+		search.setCategoryIdx(categoryIdx);
 
 		int boardTotalCount = 0;
 

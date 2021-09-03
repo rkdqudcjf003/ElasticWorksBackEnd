@@ -58,12 +58,12 @@ public class JwtTokenUtil {
 
 	public String generateAccessToken(User user) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, user.getUserId(), JwtProperties.ACTK_EXPIRATION_TIME);
+		return doGenerateToken(claims, user.getId(), JwtProperties.ACTK_EXPIRATION_TIME);
 	}
 
 	public String generateRefreshToken(User user) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, user.getUserId(), JwtProperties.RFTK_EXPIRATION_TIME);
+		return doGenerateToken(claims, user.getId(), JwtProperties.RFTK_EXPIRATION_TIME);
 	}
 
 	public String doGenerateToken(Map<String, Object> claims, String userId, long expireTime) {

@@ -2,50 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.elasticworks.api.mapper.UserMapper">
 	<resultMap id="UserResult" type="User">
-		<result column="user_no" property="userNo" />
-		<result column="user_id" property="userId" />
-		<result column="user_pwd" property="userPwd" />
-		<result column="user_real_name" property="userName" />
-		<result column="user_nick_name" property="userNickName" />
-		<result column="user_phone_number" property="userPhoneNumber" />
-		<result column="user_email_id" property="userEmailId" />
-		<result column="user_email_domain" property="userEmailDomain" />
-		<result column="user_address1" property="userAddress1" />
-		<result column="user_address2" property="userAddress2" />
+		<result column="idx" property="idx" />
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="real_name" property="realName" />
+		<result column="nick_name" property="nickName" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="email_id" property="emailId" />
+		<result column="email_domain" property="emailDomain" />
+		<result column="address_pre" property="addressPre" />
+		<result column="address" property="address" />
 		<result column="role_name" property="roleName" />
 	</resultMap>
                                                                                               
 	<select id="selectOneUser" resultMap="UserResult">
 		SELECT
-			user_no,
-			user_id,
-			user_pwd,
-			user_real_name,
-			user_nick_name,
-			user_phone_number,
-			user_email_id,
-			user_email_domain,
-			user_address1,
-			user_address2,
+			idx,
+			id,
+			pwd,
+			real_name,
+			nick_name,
+			phone_number,
+			email_id,
+			email_domain,
+			address_pre,
+			address,
 			role_name
 		FROM
 			user
 		WHERE
-			user_id = #{userId}
+			id = #{id}
 	</select>
 	
 	<select id="selectAllUser" resultType="User">
 		SELECT 
-		 user_no,
-		 user_id, 
-		 user_pwd, 
-		 user_real_name,
-		 user_nick_name,
-		 user_phone_number,
-		 user_email_id,
-		 user_email_domain,
-		 user_address1,
-		 user_address2
+		 idx,
+		 id, 
+		 pwd, 
+		 real_name,
+		 nick_name,
+		 phone_number,
+		 email_id,
+		 email_domain,
+		 address_pre,
+		 address
 		FROM user
 	</select>
 	
@@ -53,26 +53,26 @@
 	<insert id="insertUser">
 		INSERT INTO
 			user (
-				user_id,
-				user_pwd, 
-				user_real_name, 
-				user_nick_name, 
-				user_phone_number, 
-				user_email_id,
-				user_email_domain, 
-				user_address1, 
-				user_address2
+				id,
+				pwd, 
+				real_name, 
+				nick_name, 
+				phone_number, 
+				email_id,
+				email_domain, 
+				address1, 
+				address2
 				)
 		VALUES (
-			#{userId}, 
-			#{userPwd}, 
-			#{userRealName}, 
-			#{userNickName}, 
-			#{userPhoneNumber}, 
-			#{userEmailId}, 
-			#{userEmailDomain}, 
-			#{userAddress1}, 
-			#{userAddress2}
+			#{id}, 
+			#{pwd}, 
+			#{realName}, 
+			#{nickName}, 
+			#{phoneNumber}, 
+			#{emailId}, 
+			#{emailDomain}, 
+			#{addressPre}, 
+			#{address}
 			)
 	</insert>
 
@@ -80,73 +80,73 @@
 		UPDATE
 			user
 		SET
-			user_pwd = #{userPwd},
-			user_nick_name = #{userNickName},
-			user_phone_number = #{userPhoneNumber},
-			user_email_id = #{userEmailId},
-			user_email_domain2 = #{userEmailDomain},
-			user_address1 = #{userAddress1},
-			user_address2 = #{userAddress2},
+			pwd = #{pwd},
+			nick_name = #{nickName},
+			phone_number = #{phoneNumber},
+			email_id = #{emailId},
+			email_domain2 = #{emailDomain},
+			addressPre = #{addressPre},
+			address = #{address},
 			role_name = #{roleName}
 		WHERE
-			user_id = #{userId}
+			id = #{id}
 	</update>
 
 	<select id="findByUserId" resultType="User">
 		SELECT
-			u.user_no AS userNo,
-			u.user_id AS userId,
-			u.user_pwd AS userPwd,
-			u.user_real_name AS userRealName,
-			r.role_name AS roleName
+			u.idx AS idx,
+			u.id AS id,
+			u.pwd AS pwd,
+			u.real_name AS realName,
+			r.name AS roleName
 		FROM
 			user AS u
 				INNER JOIN user_role AS ur
-				ON u.user_no = ur.user_no
+				ON u.idx = ur.user_idx
 				INNER JOIN role AS r 
-				ON r.role_no = ur.role_no
+				ON r.idx = ur.role_idx
 		WHERE
-			u.user_id = #{userId}
+			u.id = #{id}
     </select> 
 	
 	<insert id="userRoleSave">
 		INSERT INTO user_role
         (
-            user_no,
-            role_no
+            user_idx,
+            role_idx
         )
         VALUES
         (
-            #{userNo},
-            #{roleNo}
+            #{userIdx},
+            #{roleIdx}
         )
 	</insert>
 	
 	<select id="findUserNo" resultType="Integer">
 		SELECT 
-			user_no
+			u.idx
 		FROM
-			user
+			user u
 		WHERE
-			user_id = #{userId}
+			u.id = #{id}
 	</select>
 	
 	<select id="findRoleNo" resultType="int">
 		SELECT 
-			role_no
+			idx
 		FROM
-			role
+			role r
 		WHERE
-			role_name = #{roleName}
+			r.name = #{name}
 	</select>
 	
 	<select id="findByUserPwd" resultType="string">
 		SELECT 
-			user_pwd
+			pwd
 		FROM
 			user
 		WHERE
-			user_id = #{userId}
+			id = #{id}
 	</select>
 	
 	<!-- "select u from User u left join fetch u.roles r where u.username=:username" -->
@@ -158,8 +158,7 @@
 			LEFT JOIN FETCH
 				u.roleName r
 		WHERE
-			u.user_id=:username
+			u.id=:username
 	</select>
-	
-	
+
 </mapper>

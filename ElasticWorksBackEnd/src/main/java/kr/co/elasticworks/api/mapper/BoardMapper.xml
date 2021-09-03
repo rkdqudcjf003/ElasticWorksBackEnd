@@ -41,48 +41,49 @@
 		<!-- 검색 키워드가 있을 때 -->
 		<if test="searchKeyword != null and searchKeyword != ''">
 			<choose>
-				<!-- 검색 유형이 있을 때 -->
 				<when test="searchType != null and searchType != ''">
 					<choose>
-						<when test="'title'.equals(searchType)">
-							AND title
-							LIKE CONCAT('%', #{searchKeyword}, '%')
+						<when test="categoryIdx != '0'">
+							<choose>
+								<when test="'title'.equals(searchType)">
+									AND title
+									LIKE CONCAT('%', #{searchKeyword}, '%')
+									AND category_idx
+									LIKE CONCAT('%', #{categoryIdx}, '%')
+								</when>
+								<when test="'content'.equals(searchType)">
+									AND content
+									LIKE CONCAT('%', #{searchKeyword}, '%')
+									AND category_idx
+									LIKE CONCAT('%', #{categoryIdx}, '%')
+								</when>
+								<when test="'writer'.equals(searchType)">
+									AND writer
+									LIKE CONCAT('%', #{searchKeyword}, '%')
+									AND category_idx
+									LIKE CONCAT('%', #{categoryIdx}, '%')
+								</when>
+							</choose>
 						</when>
-						<when test="'content'.equals(searchType)">
-							AND content
-							LIKE CONCAT('%', #{searchKeyword}, '%')
-						</when>
-						<when test="'writer'.equals(searchType)">
-							AND writer
-							LIKE CONCAT('%', #{searchKeyword}, '%')
+						<when test="categoryIdx == '0'">
+							<choose>
+								<when test="'title'.equals(searchType)">
+									AND title
+									LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="'content'.equals(searchType)">
+									AND content
+									LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="'writer'.equals(searchType)">
+									AND writer
+									LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+							</choose>
 						</when>
 					</choose>
-				</when> 
-				<!-- 검색 유형이 없을 때 -->
-				<otherwise>
-					AND (
-						title
-					LIKE CONCAT
-						('%', #{searchKeyword}, '%')	
-					OR
-						content
-					LIKE CONCAT
-						('%', #{searchKeyword}, '%')
-					OR
-						writer
-					LIKE CONCAT
-						('%', #{searchKeyword}, '%')
-						)
-				</otherwise>
+				</when>
 			</choose>
-		</if>
-		<if test="categoryIdx != 0">
-			AND (
-				category_idx
-			LIKE CONCAT(
-				#{categoryIdx}
-				)
-				)
 		</if>
 		ORDER BY
 			b.idx
@@ -118,6 +119,7 @@
 							AND writer
 							LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
+						
 					</choose>
 				</when>
 				<!-- 검색 유형이 없을 때 -->
@@ -142,7 +144,7 @@
 			AND (
 				category_idx
 			LIKE CONCAT
-				(#{categoryIdx})
+				('%', #{categoryIdx}, '%')
 				)
 		</if>
 	</select>

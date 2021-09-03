@@ -21,8 +21,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(value = "/read/{userId}")
-	public User selectOneUser(@PathVariable("userId") String userId) throws Exception {
+	@GetMapping(value = "/read/{id}")
+	public User selectOneUser(@PathVariable("id") String userId) throws Exception {
 		return userService.selectOneUser(userId);
 	}
 
@@ -33,8 +33,8 @@ public class UserController {
 		return userService.insertUser(userVo);
 	}
 
-	@PostMapping(value = "/{userId}")
-	public int updateUser(@PathVariable("userId") String userId, User UserVo) throws Exception {
+	@PostMapping(value = "/{id}")
+	public int updateUser(@PathVariable("id") String userId, User UserVo) throws Exception {
 		return userService.updateUser(userId, UserVo);
 	}
 

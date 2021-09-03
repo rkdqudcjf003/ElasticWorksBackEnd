@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.elasticworks.api.domain.Board;
 import kr.co.elasticworks.api.domain.Popup;
 import kr.co.elasticworks.api.domain.SearchPagingUtil;
-import kr.co.elasticworks.api.domain.User;
 import kr.co.elasticworks.api.service.BoardService;
 import kr.co.elasticworks.api.service.PopupService;
 import kr.co.elasticworks.api.service.UserService;
@@ -70,7 +69,7 @@ public class AdminController {
 		search.setCurrentPageNo(pageNo);
 		search.setSearchKeyword(keyword);
 		search.setSearchType(type);
-		search.setCategory(categoryIdx);
+		search.setCategoryIdx(categoryIdx);
 
 		int boardTotalCount = 0;
 
@@ -89,8 +88,8 @@ public class AdminController {
 	}
 	
 	//게시판 조회
-	@GetMapping(value = "/read/{boardIdx}")
-	public Board selectOneBoard(@PathVariable("boardIdx") int boardIdx) throws Exception {
+	@GetMapping(value = "/read/{idx}")
+	public Board selectOneBoard(@PathVariable("idx") int boardIdx) throws Exception {
 		System.out.println("selectOneBoardController실행");
 		return boardService.selectOneBoard(boardIdx);
 	}
@@ -109,12 +108,10 @@ public class AdminController {
 		return boardService.updateBoard(idx, board);
 	}
 	
-	
 	//게시판 삭제
 	@PutMapping(value = "/delete/{idx}")
-	public int deleteOneBoard(@PathVariable("idx") int idx, @RequestBody Board board) throws Exception {
-		System.out.println("deleteOneBoardController 실행");
-		return boardService.deleteOneBoard(idx, board);
+	public int deleteOneBoard(@PathVariable("idx") int boardIdx, Board board) throws Exception {
+		return boardService.deleteOneBoard(boardIdx, board);
 	}
 	
 	//전체 팝업 리스트
@@ -123,6 +120,4 @@ public class AdminController {
 		System.out.println("popupListController 실행");
 		return popupService.popupAllList();
 	}
-
-	
 }

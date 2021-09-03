@@ -13,11 +13,11 @@ public interface UserMapper {
 	
 	public int updateUser(User User);
 	
-	User findByUserId(@Param("userId") String id);
+	User findByUserId(@Param("id") String id);
 
-	int userRoleSave(@Param("userNo") int userNo, @Param("roleNo") int roleNo);
+	int userRoleSave(@Param("userIdx") int userNo, @Param("roleIdx") int roleNo);
 
-	int findUserNo(@Param("userId") String id);
+	int findUserNo(@Param("id") String id);
 
 	int findRoleNo(@Param("roleName") String roleName);
 	
