@@ -29,11 +29,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public int insertUser(User user) {
 
-		String password = user.getUserPwd();
-		user.setUserPwd(bCryptPasswordEncoder.encode(password));
+		String password = user.getPwd();
+		user.setPwd(bCryptPasswordEncoder.encode(password));
 		int userInsertflag = userMapper.insertUser(user);
 		if (userInsertflag > 0) {
-			int userNo = userMapper.findUserNo(user.getUserId());
+			int userNo = userMapper.findUserNo(user.getId());
 			int roleNo = userMapper.findRoleNo(user.getRoleName());
 			userMapper.userRoleSave(userNo, roleNo);
 			return 1;
@@ -49,14 +49,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public int updateUser(String userId, User userVo) {
 		User user = new User();
 		log.info("Update User - 수정전 데이터: " + user);
-		user.setUserPwd(userVo.getUserPwd());
-		user.setUserRealName(userVo.getUserRealName());
-		user.setUserNickName(userVo.getUserNickName());
-		user.setUserPhoneNumber(userVo.getUserPhoneNumber());
-		user.setUserEmail1(userVo.getUserEmail1());
-		user.setUserEmail2(userVo.getUserEmail2());
-		user.setUserAddress1(userVo.getUserAddress1());
-		user.setUserAddress2(userVo.getUserAddress2());
+		user.setPwd(userVo.getPwd());
+		user.setRealName(userVo.getRealName());
+		user.setNickName(userVo.getNickName());
+		user.setPhoneNumber(userVo.getPhoneNumber());
+		user.setEmailId(userVo.getEmailId());
+		user.setEmailDomain(userVo.getEmailDomain());
+		user.setAddressPre(userVo.getAddressPre());
+		user.setAddress(userVo.getAddress());
 		log.info("Update User - 수정후 데이터: " + user);
 
 		return userMapper.updateUser(user);
@@ -70,13 +70,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 	
 	@Override
-	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		System.out.println("========================== UserServiceImpl의 loadUserByUsername() ==========================");
-		User user = userMapper.findByUserId(userId);
-		log.info("USER_ID!! " + userId);
+		User user = userMapper.findByUserId(id);
+		log.info("USER_ID!! " + id);
 		log.info("USER_VO!! " + user);
 		if (user == null) {
-			throw new UsernameNotFoundException(userId + " : 사용자 존재하지 않음");
+			throw new UsernameNotFoundException(id + " : 사용자 존재하지 않음");
 		}
 		System.out.println("========================== UserServiceImpl의 loadUserByUsername() 종료 ======================");
 		return user;

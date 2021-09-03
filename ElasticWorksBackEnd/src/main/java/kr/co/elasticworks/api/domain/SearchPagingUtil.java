@@ -10,8 +10,6 @@ public class SearchPagingUtil {
 	
 	private int currentPageNo;
 
-//	private int[] boardNumber; // 뷰에서 보여질 게시글 번호(유동적)
-
 	private int boardsTotalCount; // 전체 글 수
 	private int boardsPerPage; // 페이징당 출력할 글 개수
 
@@ -46,8 +44,8 @@ public class SearchPagingUtil {
 		this.searchType = searchType;
 	}
 	
-	public void setCategory(int category) {
-		this.categoryIdx = category;
+	public void setCategoryIdx(int categoryIdx) {
+		this.categoryIdx = categoryIdx;
 	}
 
 	public SearchPagingUtil(int currentPageNo, int boardsPerPage, int pageSize) {

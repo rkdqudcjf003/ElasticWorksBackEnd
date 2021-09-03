@@ -15,16 +15,16 @@ import lombok.*;
 
 @Data
 public class User implements UserDetails {
-	private int userNo; // 회원 pk
-	private String userId;// varchar(45) NOT NULL,
-	private String userPwd;// varchar(45) NOT NULL,
-	private String userRealName; // varchar(20) NOT NULL,
-	private String userNickName; // varchar(20) NOT NULL,
-	private String userPhoneNumber;// ` varchar(45) NOT NULL,
-	private String userEmail1;// ` varchar(45) NOT NULL,
-	private String userEmail2;// varchar(45) NOT NULL,
-	private String userAddress1;// varchar(45) DEFAULT NULL,
-	private String userAddress2;// ` varchar(45) DEFAULT NULL,
+	private int idx; // 회원 pk
+	private String id;// varchar(45) NOT NULL,
+	private String pwd;// varchar(45) NOT NULL,
+	private String realName; // varchar(20) NOT NULL,
+	private String nickName; // varchar(20) NOT NULL,
+	private String phoneNumber;// ` varchar(45) NOT NULL,
+	private String emailId;// ` varchar(45) NOT NULL,
+	private String emailDomain;// varchar(45) NOT NULL,
+	private String addressPre;// varchar(45) DEFAULT NULL,
+	private String address;// ` varchar(45) DEFAULT NULL,
 	private String roleName;
 
 	public List<String> getRoleList() {
@@ -36,7 +36,7 @@ public class User implements UserDetails {
 	
 	@Override
 	public String toString() {
-		return "UserVO [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userRealName + ", roleName="
+		return "UserVO [userId=" + id + ", userPwd=" + pwd + ", userName=" + realName + ", roleName="
 				+ roleName + "]";
 	}
 	
@@ -49,12 +49,12 @@ public class User implements UserDetails {
 	
 	@Override
 	public String getPassword() {
-		return this.userPwd;
+		return this.pwd;
 	}
 
 	@Override
 	public String getUsername() {
-		return this.userId;
+		return this.id;
 	}
 
 	@Override
@@ -76,5 +76,7 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+	
 
 }

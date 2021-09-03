@@ -104,7 +104,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 					
 					User user = new User();
-					user.setUserId(refreshUserId);
+					user.setId(refreshUserId);
 					// 새로운 Access 토큰 발급
 					String newToken = jwtTokenUtil.generateAccessToken(user);
 

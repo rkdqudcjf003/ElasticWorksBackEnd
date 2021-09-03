@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.elasticworks.api.domain.Board;
 import kr.co.elasticworks.api.domain.SearchPagingUtil;
-import kr.co.elasticworks.api.domain.User;
 import kr.co.elasticworks.api.service.BoardService;
 import kr.co.elasticworks.api.service.UserService;
 
@@ -61,7 +60,7 @@ public class AdminController {
 		search.setCurrentPageNo(pageNo);
 		search.setSearchKeyword(keyword);
 		search.setSearchType(type);
-		search.setCategory(categoryIdx);
+		search.setCategoryIdx(categoryIdx);
 
 		int boardTotalCount = 0;
 
