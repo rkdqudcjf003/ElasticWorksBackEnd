@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,24 +82,33 @@ public class AdminController {
 	//게시판 조회
 	@GetMapping(value = "/read/{boardIdx}")
 	public Board selectOneBoard(@PathVariable("boardIdx") int boardIdx) throws Exception {
+		System.out.println("selectOneBoardController실행");
 		return boardService.selectOneBoard(boardIdx);
 	}
 
 	@PostMapping(value = "/insert")
 	public int insertBoard(@RequestBody Board boardVo) throws Exception {
-		System.out.println(boardVo);
-		System.out.println("insertBoard실행");
+		System.out.println("insertBoardController실행");
 		return boardService.insertBoard(boardVo);
 	}
-
-	@PostMapping(value = "/{boardIdx}")
-	public int updateBoard(@PathVariable("boardIdx") int boardIdx, Board boardVo) throws Exception {
-		return boardService.updateBoard(boardIdx, boardVo);
+	
+	@PutMapping(value = "/{idx}")
+	public int updateBoard(@PathVariable("idx") int idx, @RequestBody  Board board) throws Exception {
+		System.out.println("updateBoardController 실행");
+		return boardService.updateBoard(idx, board);
 	}
 
+<<<<<<< HEAD
+	@PutMapping(value = "/delete/{idx}")
+	public int deleteOneBoard(@PathVariable("idx") int idx) throws Exception {
+		System.out.println("deleteOneBoardController 실행");
+		return boardService.deleteOneBoard(idx);
+=======
 	@PostMapping(value = "/delete/{boardIdx}")
 	public int deleteOneBoard(@PathVariable("boardIdx") int boardIdx, Board board) throws Exception {
 		return boardService.deleteOneBoard(boardIdx, board);
+>>>>>>> branch 'master' of https://github.com/rkdqudcjf003/ElasticWorksBackEnd.git
 	}
+
 	
 }
