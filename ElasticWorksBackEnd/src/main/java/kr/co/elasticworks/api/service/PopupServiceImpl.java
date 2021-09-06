@@ -26,7 +26,7 @@ public class PopupServiceImpl implements PopupService {
 	
 	@Override
 	public int createPopup(Popup popup) throws Exception{
-		return popupMapper.createPopup(Popup popup);
+		return popupMapper.createPopup(popup);
 	};
 	
 	@Override
