@@ -20,22 +20,22 @@ public class PopupServiceImpl implements PopupService {
 	}
 	
 	@Override
-	public Popup selectOnePopup() throws Exception{
-		return popupMapper.selectOnePopup();
+	public Popup selectOnePopup(int popupIdx) throws Exception{
+		return popupMapper.selectOnePopup(popupIdx);
 	};
 	
 	@Override
-	public int createPopup() throws Exception{
-		return popupMapper.createPopup();
+	public int createPopup(Popup popup) throws Exception{
+		return popupMapper.createPopup(Popup popup);
 	};
 	
 	@Override
-	public int updatePopup() throws Exception{
-		return popupMapper.updatePopup();
+	public int updatePopup(Popup popup) throws Exception{
+		return popupMapper.updatePopup(popup);
 	};
 	
 	@Override
-	public int deletePopup() throws Exception{
-		return popupMapper.deletePopup();
+	public int deletePopup(int popupIdx) throws Exception{
+		return popupMapper.deletePopup(popupIdx);
 	};
 }

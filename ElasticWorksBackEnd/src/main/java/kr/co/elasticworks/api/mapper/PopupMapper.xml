@@ -60,7 +60,7 @@
 			idx=#{idx}
 	</update>
 	
-	<delete id="deletePopup">
+	<delete id="deletePopup" parameterType="int">
 		DELETE FROM
 			popup
 		WHERE

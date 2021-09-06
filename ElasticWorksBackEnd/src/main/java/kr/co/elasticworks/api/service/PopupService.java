@@ -8,12 +8,12 @@ public interface PopupService {
 
 	List<Popup> popupAllList() throws Exception;
 
-	Popup selectOnePopup() throws Exception;
+	Popup selectOnePopup(int popupIdx) throws Exception;
 
-	int createPopup() throws Exception;
+	int createPopup(Popup popup) throws Exception;
 
-	int updatePopup() throws Exception;
+	int updatePopup(Popup popup) throws Exception;
 
-	int deletePopup() throws Exception;
+	int deletePopup(int popupIdx) throws Exception;
 
 }

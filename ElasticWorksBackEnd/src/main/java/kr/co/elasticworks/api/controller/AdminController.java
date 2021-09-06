@@ -125,22 +125,32 @@ public class AdminController {
 		return map;
 	}
 	
-	@GetMapping(value="/selectOnePopup")
-	public Popup selectOnePopup() throws Exception{
-		return popupService.selectOnePopup();
+	@PutMapping(value="/selectOnePopup/{idx}")
+	public Popup selectOnePopup(@PathVariable("idx") int popupIdx) throws Exception{
+		System.out.println("selectOnePopupController 실행");
+		System.out.println("idx:"+popupIdx);
+		return popupService.selectOnePopup(popupIdx);
 	};
 	
-	@GetMapping(value="/selectOnePopup")
-	public int createPopup() throws Exception{
-		return popupService.createPopup();
+	@PostMapping(value="/createPopup")
+	public int createPopup(Popup popup) throws Exception{
+		System.out.println("createPopupController 실행");
+		System.out.println(popup);
+		return popupService.createPopup(popup);
 	};
 	
-	public int updatePopup() throws Exception{
-		return popupService.updatePopup();
+	@PutMapping(value="/updatePopup/{idx}")
+	public int updatePopup(@PathVariable("idx") int popupIdx, @RequestBody Popup popup) throws Exception{
+		popup.setIdx(popupIdx);
+		System.out.println(popup);
+		return popupService.updatePopup(popup);
 	};
 	
-	public int deletePopup() throws Exception{
-		return popupService.deletePopup();
+	@PutMapping(value="/deletePopup/{idx}")
+	public int deletePopup(@PathVariable("idx") int popupIdx) throws Exception{
+		System.out.println("deletePopupController 실행");
+		System.out.println(popupIdx);
+		return popupService.deletePopup(popupIdx);
 	};
 	
 }
